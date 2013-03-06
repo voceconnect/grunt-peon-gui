@@ -46,7 +46,7 @@ var PeonGUI = (function () {
 
     function updateTaskInfo(task) {
         var taskObject = currentProject.tasks[task],
-            html = "<h2><%= name %></h2><p><%= info %></p><button class='btn btn-success' id='runTask' data-name='<%= name %>'>Run</button>&nbsp;<button id='killTask' class='btn btn-danger'>Stop</button>";
+            html = "<h2><%= name %></h2><p><%= info %></p><pre><%= config %></pre><br /><button class='btn btn-success' id='runTask' data-name='<%= name %>'>Run</button>&nbsp;<button id='killTask' class='btn btn-danger'>Stop</button>";
         $html.taskInfo.html(_.template(html, taskObject));
     }
 
@@ -135,7 +135,7 @@ var PeonGUI = (function () {
             currentPort = startPort;
         }
         currentPort++;
-        setTimeout(connect, 1000);
+        setTimeout(connect, 10000);
     }
 
     return function () {

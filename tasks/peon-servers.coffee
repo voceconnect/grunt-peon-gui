@@ -17,6 +17,15 @@ module.exports = (grunt) ->
         process.on("uncaughtException", @killWorkers)
         process.on("SIGINT", @killWorkers)
         process.on("SIGTERM", @killWorkers)
+        @addConfigToTasks()
+
+      addConfigToTasks : () ->
+        config = grunt.config.get()
+        that = @
+        grunt.util._.forEach(@tasks, (task, k)->
+          taskConfig = JSON.stringify(config[k], null, 4) || "No configuration"
+          that.tasks[k].config = taskConfig
+        )
 
       killWorkers: () ->
         @workers.forEach((worker) ->
