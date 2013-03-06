@@ -1,0 +1,16 @@
+body {
+    padding-top: 60px;
+}
+
+#placeOutput {
+    font-family: Courier;
+    color: #458B00;
+    background: #000000;
+    border: 3px double #CCCCCC;
+    padding: 10px;
+}
+
+#notice {text-align: center;}
+
+body.offline #tasks, body.offline #output {display: none}
+body.offline #notice {display: block; visibility: visible;}

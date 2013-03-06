@@ -14,7 +14,7 @@ module.exports = (grunt) ->
 
     runGui = () ->
       connect.createServer(connect.static(path.resolve(__dirname, '../app'))).listen(8888)
-      grunt.log.writeln "GUI runing on localhost::8888"
+      grunt.log.writeln "GUI running on localhost::8888"
     runGui()
 
     server = http.createServer((request, response) ->
