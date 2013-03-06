@@ -25,15 +25,16 @@
                 <ul id="placeTasks" class="nav nav-list"></ul>
             </div>
         </section>
-        <section id='output' class="span9">
+        <section class="span9">
+            <div id="taskInfo"></div>
+            <div id="output">
             <header>
-                <button id='killTask' class="btn btn-danger pull-right">Kill
-                    Task
-                </button>
                 <h2>Output <progress id='running' class="hidden"></progress></h2>
+                <button class="btn btn-mini pull-right" id="clearConsole">clear</button>
             </header>
             <div class="clearfix"></div>
             <div id='placeOutput'>No output.</div>
+                </div>
         </section>
         <section id='notice' class="span12 hidden">
             <p><img src='img/icon128.png' alt='Grunt'/></p>
