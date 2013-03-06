@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <link rel='stylesheet' href='css/peon-chrome.css'>
+</head>
+<body>
+<header id='projects'>
+    <h2>Projects</h2>
+    <div id='placeProjects'></div>
+</header>
+<div id='tools'>
+    <section id='tasks'>
+        <div id='backgroundTasks'>
+            <header><h2 >Background Tasks</h2></header>
+            <div id='placeBackgroundTasks'></div>
+        </div>
+        <header><h2>Tasks</h2></header>
+        <div id='placeTasks'></div>
+    </section>
+    <section id='output'>
+        <header>
+            <h2>Output</h2>
+            <button id='sendBackground'>Send task to background</button>
+            <button id='killTask'>Kill Task</button>
+        </header>
+        <div id='placeOutput'></div>
+    </section>
+</div>
+<section id='notice'>
+    <p>
+        <img src='img/icon128.png' alt='Grunt'/><br/>
+        <strong>No projects detected.</strong>
+    </p>
+    <p><small>Is <code>grunt devtools</code> running?</small></p>
+</section>
+<script src='js/vendor/jquery.min.js'></script>
+<script src='js/vendor/lodash.min.js'></script>
+<script src='js/peon-chrome.js'></script>
+<progress id='running'></progress>
+</body>
+</html>
