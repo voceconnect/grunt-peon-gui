@@ -4,7 +4,7 @@
 
 var PeonGUI = (function () {
     'use-strict';
-    var socket,
+    var sockets = [61750, 61751, 61752, 61753, 61754],
         currentProject,
         $html = {
             output: $("#placeOutput"),
@@ -13,13 +13,12 @@ var PeonGUI = (function () {
             regularTasks: $("#placeTasks"),
             projects: $("#placeProjects"),
             taskInfo: $("#taskInfo"),
-            runTask: $("#runTask"),
-            clearConsole : $("#clearConsole"),
+            actionButtons: $("#action-buttons"),
+            runTask: $("#run-task"),
+            killTask: $("#kill-task"),
+            clearConsole: $("#clearConsole"),
             progress: $("running")
         },
-        startPort = 61749,
-        currentPort = startPort,
-        maxPort = currentPort + 5,
         projects = [],
         running = false,
         currentTask;
@@ -46,7 +45,7 @@ var PeonGUI = (function () {
 
     function updateTaskInfo(task) {
         var taskObject = currentProject.tasks[task],
-            html = "<h2><%= name %></h2><p><%= info %></p><pre><%= config %></pre><br /><button class='btn btn-success' id='runTask' data-name='<%= name %>'>Run</button>&nbsp;<button id='killTask' class='btn btn-danger'>Stop</button>";
+            html = "<h2><%= name %></h2><p><%= info %></p><pre><%= config %></pre>";
         $html.taskInfo.html(_.template(html, taskObject));
     }
 
@@ -65,14 +64,25 @@ var PeonGUI = (function () {
         }
     }
 
-    function handleSocketOpen(e) {
+    function handleSocketOpen() {
         $html.body.removeClass('offline').addClass('online');
-        socket.send('connect');
+        try {
+            sockets.forEach(function (socket) {
+                socket.send('connect');
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     function handleSocketMessage(event) {
         if (event.data) {
-            var data = JSON.parse(event.data);
+            try {
+                var data = JSON.parse(event.data);
+            } catch (err) {
+                console.log(JSON.parse(event.data));
+                return;
+            }
             if (data && data.project) {
                 projects.push({
                     name: data.project,
@@ -118,47 +128,51 @@ var PeonGUI = (function () {
     }
 
     function connect() {
-        var exists = _.find(projects, function (project) {
-            return project.port === currentPort;
-        });
-
-        // if no project on that port
-        if (!exists) {
-            socket = new WebSocket('ws://localhost:' + currentPort, 'echo-protocol');
-            socket.onopen = handleSocketOpen;
-            socket.onmessage = handleSocketMessage;
-            socket.onclose = handleSocketClose;
-            socket.onerror = handleSocketError;
+        var i = startPort,
+            projectPorts = projects.map(function (project) {return project.port;})
+        for (i; i < maxPort; i++) {
+            if (jQuery.inArray(i, projectPorts) === -1 && window.hasOwnProperty("WebSocket")) {
+                try {
+                    sockets[i] = new WebSocket('ws://localhost:' + i, 'echo-protocol');
+                    sockets[i].onopen = handleSocketOpen;
+                    sockets[i].onmessage = handleSocketMessage;
+                    sockets[i].onclose = handleSocketClose;
+                    sockets[i].onerror = handleSocketError;
+                } catch (err) {
+                    console.log(err);
+                }
+            }
         }
 
-        if (maxPort === currentPort) {
-            currentPort = startPort;
-        }
-        currentPort++;
         setTimeout(connect, 10000);
     }
 
     return function () {
         connect();
-        $html.tasks.on('click', 'a', function () {
+        $html.tasks.on('click', 'a', function (e) {
+            e.preventDefault();
             var taskName = $(this).data('task');
+            $(this).parent('li').siblings().removeClass('active');
+            $(this).parent('li').addClass('active');
             currentTask = {name: taskName, output: ''};
+            $html.actionButtons.removeClass('hidden');
             updateTaskInfo(taskName);
         });
 
-        $html.runTask.on('click', 'a', function () {
-            var taskName = $(this).data('task');
-            currentTask = {name: taskName, output: ''};
-            currentProject.socket.send(taskName);
+        $html.runTask.on('click', function (e) {
+            e.preventDefault();
+            currentProject.socket.send(currentTask.name);
             $html.progress.show();
             disableActivity();
         });
 
-        $html.clearConsole.click(function () {
+        $html.clearConsole.on('click', function (e) {
+            e.preventDefault();
             $html.output.html('');
         });
 
-        $html.projects.on('click', 'a', function () {
+        $html.projects.on('click', 'a', function (e) {
+            e.preventDefault();
             setProject($(this).data('task'));
         });
     };
