@@ -80,9 +80,10 @@ module.exports = (grunt) ->
                 ))
               else if Object.keys(that.tasks).indexOf(msg) > -1
                 connection.send("Running Task: #{msg}")
+                gruntFilePath = __dirname.replace("tasks/peon-gui/tasks", "peon.coffee")
                 args = [
                   '--gruntfile'
-                  '~/bin/peon/global/peon.coffee'
+                  gruntFilePath
                   '--base'
                   '.'
                   msg

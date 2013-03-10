@@ -13,6 +13,6 @@ body {
 }
 
 #notice {text-align: center;}
-
+body.online #notice {display: hidden; visibility: hidden}
 body.offline #tasks, body.offline #output {display: none}
 body.offline #notice {display: block; visibility: visible;}
