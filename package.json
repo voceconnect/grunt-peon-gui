@@ -1,8 +1,7 @@
 {
-  "name": "peon-chrome",
+  "name": "peon-gui",
   "description": "",
-  "version": "0.1.0-alpha",
-  "main": "Gruntfile.coffee",
+  "version": "0.1.0",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -19,6 +18,5 @@
     "websocket": "~1.0.8",
     "portscanner": "~0.1.3",
     "connect": "latest",
-    "grunt-contrib-watch": "~0.2.0"
   }
 }

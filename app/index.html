@@ -11,40 +11,38 @@
 <header id='projects' class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand">Projects</a>
-
+            <a class="brand">Project:</a>
             <p class="navbar-text pull-right"><img src="img/icon32.png"/></p>
-            <ul id='placeProjects' class="nav"></ul>
+            <p id='project-name' class="brand"></p>
         </div>
     </div>
 </header>
 <div class="container-fluid">
     <div class="row-fluid">
-        <section id='tasks' class="span2">
+        <section id='tasks-list' class="span2">
             <div class="tabbable tabs-left sidebar-nav">
-                <ul id="placeTasks" class="nav nav-tabs nav-stacked"></ul>
+                <ul id="tasks" class="nav nav-tabs nav-stacked"></ul>
             </div>
         </section>
         <section class="span10" id="tabContent">
-            <div id="taskInfo"></div>
+            <div id="task-info"></div>
             <div id="action-buttons" class="hidden">
                 <a href='#' class='btn btn-success' id='run-task'>Run</a>&nbsp;
                 <a href='#' id='kill-task' class='btn btn-danger'>Stop</a>
             </div>
-            <div id="output">
+            <div id="output-wrapper">
                 <header>
                     <h2>Output</h2>
-
                     <div id="running"
                          class="progress progress-success progress-striped active hidden">
                         <div class="bar" style="width: 100%; "></div>
                     </div>
-                    <button class="btn btn-mini pull-right" id="clearConsole">
+                    <a href="#" class="btn btn-mini pull-right" id="clear-console">
                         clear
-                    </button>
+                    </a>
                 </header>
                 <div class="clearfix"></div>
-                <div id='placeOutput'>No output.</div>
+                <div id='output'>No output.</div>
             </div>
         </section>
         <section id='notice' class="span12 hidden">
@@ -62,8 +60,8 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src='js/peon-gui.js'></script>
 <script>
-    jQuery(document).ready(function () {
-        var peonGui = new PeonGUI();
+    jQuery.get("/websocket.txt", function (socket) {
+        var peonGui = new PeonGUI(socket);
     });
 </script>
 </body>

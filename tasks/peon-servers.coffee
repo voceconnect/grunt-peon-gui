@@ -6,8 +6,8 @@ module.exports = (grunt) ->
       spawn: require("child_process").spawn
       pkg: require(process.cwd() + '/package.json')
       workers: []
+      projectPort: 0
       tasks: grunt.task._tasks
-      projectPort: 61750
       server: require('http').createServer((request, response) ->
         response.writeHead(404)
         response.end()
@@ -17,6 +17,7 @@ module.exports = (grunt) ->
         process.on("uncaughtException", @killWorkers)
         process.on("SIGINT", @killWorkers)
         process.on("SIGTERM", @killWorkers)
+        @removeTasks(['gui'])
         @addConfigToTasks()
 
       addConfigToTasks : () ->
@@ -27,25 +28,34 @@ module.exports = (grunt) ->
           that.tasks[k].config = taskConfig
         )
 
+      removeTasks: (taskList) ->
+        that = @
+        grunt.util._.forEach(@tasks, (task, k)->
+          if grunt.util._.indexOf(taskList, task.name) > -1
+            delete that.tasks[k]
+        )
+
       killWorkers: () ->
         @workers.forEach((worker) ->
           process.kill(worker)
         )
         process.exit()
 
+      getSocket : ()->
+        @projectPort
+
       startWorker: ()->
         ps = require('portscanner')
-        pPort = @projectPort
-        nPort = @projectPort + 4
         that = @
-        ps.findAPortNotInUse(pPort, nPort, 'localhost', (err, port) ->
-          @projectPort = port
-          if @projectPort
+        ps.findAPortNotInUse(61750, 61755, 'localhost', (err, port) ->
+          that.projectPort = port
+          new PeonGUIServer(that).run()
+          if that.projectPort
             that.server.listen(port, () ->
               grunt.log.writeln("WebSocket running on localhost:#{port}")
             )
           else
-            grunt.log.writeln("Too many WebSockets open. Close one.")
+            grunt.log.writeln("Too many Peon WebSockets open. Close one.")
         )
         @listen()
 
@@ -69,23 +79,25 @@ module.exports = (grunt) ->
                   action: "connected"
                 ))
               else if Object.keys(that.tasks).indexOf(msg) > -1
-                watcher = that.spawn('peon', [msg, '-no-color'])
-                that.workers.push(watcher)
                 connection.send("Running Task: #{msg}")
-                watcher.stdout.on('data', (data) ->
-                  if data
-                    connection.send(data.toString())
+                args = [
+                  '--gruntfile'
+                  '~/bin/peon/global/peon.coffee'
+                  '--base'
+                  '.'
+                  msg
+                ]
+                command = that.spawn('grunt', args)
+                that.workers.push(command)
+                command.stdout.on('data', (data) ->
+                  if data then connection.send(data.toString())
                 )
-                watcher.stdout.on('end', (data) ->
-                  if data
-                    connection.send(data.toString())
+                command.stdout.on('end', (data) ->
                   connection.sendUTF(JSON.stringify({ action: 'done'}))
                 )
-                watcher.stderr.on('data', (stderr) ->
-                  if stderr
-                    connection.send(stderr.toString())
-                )
-                watcher.on('exit', (code) ->
+                command.stderr.on('data', (stderr) ->
+                  grunt.log.writeln stderr
+                  if stderr then connection.send(stderr.toString())
                 )
           )
           connection.on('close', () ->
@@ -97,18 +109,23 @@ module.exports = (grunt) ->
       connect: require('connect')
       path: require('path')
       server: false
+
+      constructor: (worker) ->
+        @worker = worker
+
       run: () ->
-        portscanner = require('portscanner')
+        ps = require('portscanner')
         that = @
-        portscanner.checkPortStatus(8888, 'localhost', (err, status) ->
-          if status is 'closed'
-            appPath = that.path.resolve(__dirname, '../app')
-            that.server = that.connect.createServer(that.connect.static(appPath))
-            that.server.listen(8888)
-          grunt.log.writeln "GUI running on localhost::8888"
+        workerPort = @worker.getSocket()
+        ps.findAPortNotInUse(8080, 8088, 'localhost', (err, port) ->
+          appPath = that.path.resolve(__dirname, '../app')
+          grunt.file.write("#{appPath}/websocket.txt", workerPort)
+          that.server = that.connect.createServer(that.connect.static(appPath))
+          that.server.listen(port)
+          grunt.log.writeln "GUI running on localhost::#{port}"
         )
 
-    new PeonGUIServer().run()
     new PeonWebSocket().startWorker()
+
   )
 
