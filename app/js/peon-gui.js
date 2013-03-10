@@ -77,7 +77,7 @@ var PeonGUI = (function () {
                 enableActivity();
             }
             if (eventMessage.length > 1 && eventData.action !== 'connected' && eventData.action !== 'done') {
-                $html.output.append("<p>" + new Date().toString().split(' ')[4] + ' - ' + eventMessage + "</p>");
+                $html.output.prepend("<p>" + new Date().toString().split(' ')[4] + ' - ' + eventMessage + "</p>");
             }
         }
 
