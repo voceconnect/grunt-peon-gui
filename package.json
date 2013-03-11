@@ -1,6 +1,6 @@
 {
   "name": "peon-gui",
-  "description": "",
+  "description": "Web interface for Peon tasks",
   "version": "0.1.0",
   "engines": {
     "node": ">= 0.8.0"
@@ -17,6 +17,6 @@
   "dependencies": {
     "websocket": "~1.0.8",
     "portscanner": "~0.1.3",
-    "connect": "latest",
+    "connect": "latest"
   }
 }
