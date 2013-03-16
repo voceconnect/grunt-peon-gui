@@ -11,7 +11,9 @@ body {
     border: 3px double #CCCCCC;
     padding: 10px;
 }
-
+#task-select {
+    margin-right: 1.5em;
+}
 #notice {text-align: center;}
 body.online #notice {display: hidden; visibility: hidden}
 body.offline #tasks, body.offline #output {display: none}

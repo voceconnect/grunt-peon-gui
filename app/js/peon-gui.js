@@ -36,11 +36,17 @@ var PeonGUI = (function () {
         $('#tasks a, #projects a').prop('disabled', false);
     }
 
+    /**
+     * @TODO refactor all of this garbage
+     * @param task
+     */
     function updateTaskInfo(task) {
         var _taskObject = project.tasks[task],
             exampleHTML,
+            dropdownHTML,
+            taskJSON,
             html = '<h2><%= name %></h2> \
-                <p><%= info %></p> \
+                <%= info %> \
                 <div class="accordion" id="configurations"> \
                 <div class="accordion-group"> \
                 <div class="accordion-heading"> \
@@ -50,7 +56,7 @@ var PeonGUI = (function () {
                 <div id="collapseConfigurations" class="accordion-body collapse"> \
                 <div class="accordion-inner"> \
                     <pre><%= config %></pre> \
-                </div></div></div>',
+                </div></div></div></div>',
             jsonRegex = /\`(\s*?.*?)*?\`/gi,
             jsonExample = _taskObject.info.match(jsonRegex);
         if (jsonExample !== null) {
@@ -60,7 +66,7 @@ var PeonGUI = (function () {
             <div class="accordion-group"> \
             <div class="accordion-heading"> \
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#json-example" href="#collapseExample"> \
-                Show Example </a> \
+                Show Help Example </a> \
             </div> \
             <div id="collapseExample" class="accordion-body collapse"> \
             <div class="accordion-inner"> \
@@ -71,7 +77,18 @@ var PeonGUI = (function () {
         </div>';
             _taskObject.info = _taskObject.info.replace(jsonRegex, exampleHTML);
         }
-
+        taskJSON = JSON.parse(_taskObject.config);
+        if (taskJSON) {
+            if (Object.keys(taskJSON).length > 0) { // has more than one configuration key
+                dropdownHTML = '<select id="task-select" class="pull-left">';
+                dropdownHTML += '<option>Select a Configuration</option>';
+                _.each(Object.keys(taskJSON), function(key){
+                    dropdownHTML += '<option value="' + key + '">' + key + '</option>';
+                });
+                dropdownHTML += '<select>';
+                html += dropdownHTML;
+            }
+        }
         $html.taskInfo.html(_.template(html, _taskObject));
     }
 
