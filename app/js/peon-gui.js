@@ -45,9 +45,13 @@ var PeonGUI = (function () {
             exampleHTML,
             dropdownHTML,
             taskJSON,
-            html = '<h2><%= name %></h2> \
-                <%= info %> \
-                <div class="accordion" id="configurations"> \
+            html = '',
+            jsonRegex = /\`(\s*?.*?)*?\`/gi,
+            jsonExample = _taskObject.info.match(jsonRegex);
+        html += '<h2><%= name %></h2> \
+                <div><%= info %></div>';
+        if (_taskObject.config.indexOf('{') >= 0) {
+            html += '<div class="accordion" id="configurations"> \
                 <div class="accordion-group"> \
                 <div class="accordion-heading"> \
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#configurations" href="#collapseConfigurations"> \
@@ -56,9 +60,11 @@ var PeonGUI = (function () {
                 <div id="collapseConfigurations" class="accordion-body collapse"> \
                 <div class="accordion-inner"> \
                     <pre><%= config %></pre> \
-                </div></div></div></div>',
-            jsonRegex = /\`(\s*?.*?)*?\`/gi,
-            jsonExample = _taskObject.info.match(jsonRegex);
+                </div></div></div></div>';
+        } else {
+            html += '<p class="text-warning"><em>No configurations set. You can pass colon delimted arguments below.</em></p> \
+            <input type="text" id="task-config" />';
+        }
         if (jsonExample !== null) {
             jsonExample = jsonExample[0].replace(/`/gi, '');
             jsonExample = JSON.stringify(JSON.parse("{" + jsonExample + "}"), null, 4);
@@ -79,8 +85,8 @@ var PeonGUI = (function () {
         }
         try {
             taskJSON = JSON.parse(_taskObject.config);
-            if (Object.keys(taskJSON).length > 0) { // has more than one configuration key
-                dropdownHTML = '<select id="task-select" class="pull-left">';
+            if (Object.keys(taskJSON).length > 1) {
+                dropdownHTML = '<select id="task-config" class="pull-left">';
                 dropdownHTML += '<option>Select a Configuration</option>';
                 _.each(Object.keys(taskJSON), function (key) {
                     dropdownHTML += '<option value="' + key + '">' + key + '</option>';
@@ -164,7 +170,7 @@ var PeonGUI = (function () {
 
         $html.runTask.on('click', function (e) {
             e.preventDefault();
-            var $taskSelector = $('#task-select');
+            var $taskSelector = $('#task-config');
             if ($taskSelector.length > 0) {
                 currentTask.name = currentTask.name + ":" + $taskSelector.val();
             }
@@ -174,6 +180,7 @@ var PeonGUI = (function () {
 
         $html.killTask.on('click', function (e) {
             e.preventDefault();
+            enableActivity();
             $html.output.html('');
         });
 
