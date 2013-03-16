@@ -3,7 +3,7 @@
  parseInt, alert */
 
 var PeonGUI = (function () {
-    'use-strict';
+    "use-strict";
     var socket,
         project,
         $html = {
@@ -36,11 +36,31 @@ var PeonGUI = (function () {
         $('#tasks a, #projects a').prop('disabled', false);
     }
 
-
     function updateTaskInfo(task) {
-        var taskObject = project.tasks[task],
-            html = "<h2><%= name %></h2><p><%= info %></p><pre><%= config %></pre>";
-        $html.taskInfo.html(_.template(html, taskObject));
+        var _taskObject = project.tasks[task],
+            exampleHTML,
+            html = "<h2><%= name %></h2><p><%= info %></p><h5>Configuration(s)</h5><pre><%= config %></pre>",
+            jsonRegex = /\`(\s*?.*?)*?\`/gi,
+            jsonExample = _taskObject.info.match(jsonRegex);
+        if (jsonExample !== null) {
+            jsonExample = jsonExample[0].replace(/`/gi, '');
+            jsonExample = JSON.stringify(JSON.parse("{" + jsonExample + "}"), null, 4);
+            exampleHTML = '<div class="accordion" id="json-example"> \
+            <div class="accordion-group"> \
+            <div class="accordion-heading"> \
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#json-example" href="#collapseOne"> \
+                Show Example </a> \
+            </div> \
+            <div id="collapseOne" class="accordion-body collapse"> \
+            <div class="accordion-inner"> \
+            <pre> ' + jsonExample + '</pre> \
+            </div> \
+            </div> \
+            </div> \
+        </div>';
+            _taskObject.info = _taskObject.info.replace(jsonRegex, exampleHTML);
+        }
+        $html.taskInfo.html(_.template(html, _taskObject));
     }
 
     function setProject() {
@@ -110,6 +130,7 @@ var PeonGUI = (function () {
             currentTask = {name: taskName, output: ''};
             $html.actionButtons.removeClass('hidden');
             updateTaskInfo(taskName);
+            $('html,body').scrollTop(0);
         });
 
         $html.runTask.on('click', function (e) {
