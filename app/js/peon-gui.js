@@ -39,7 +39,18 @@ var PeonGUI = (function () {
     function updateTaskInfo(task) {
         var _taskObject = project.tasks[task],
             exampleHTML,
-            html = "<h2><%= name %></h2><p><%= info %></p><h5>Configuration(s)</h5><pre><%= config %></pre>",
+            html = '<h2><%= name %></h2> \
+                <p><%= info %></p> \
+                <div class="accordion" id="configurations"> \
+                <div class="accordion-group"> \
+                <div class="accordion-heading"> \
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#configurations" href="#collapseConfigurations"> \
+                Show Configuration(s) </a> \
+                </div> \
+                <div id="collapseConfigurations" class="accordion-body collapse"> \
+                <div class="accordion-inner"> \
+                    <pre><%= config %></pre> \
+                </div></div></div>',
             jsonRegex = /\`(\s*?.*?)*?\`/gi,
             jsonExample = _taskObject.info.match(jsonRegex);
         if (jsonExample !== null) {
@@ -48,10 +59,10 @@ var PeonGUI = (function () {
             exampleHTML = '<div class="accordion" id="json-example"> \
             <div class="accordion-group"> \
             <div class="accordion-heading"> \
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#json-example" href="#collapseOne"> \
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#json-example" href="#collapseExample"> \
                 Show Example </a> \
             </div> \
-            <div id="collapseOne" class="accordion-body collapse"> \
+            <div id="collapseExample" class="accordion-body collapse"> \
             <div class="accordion-inner"> \
             <pre> ' + jsonExample + '</pre> \
             </div> \
@@ -60,6 +71,7 @@ var PeonGUI = (function () {
         </div>';
             _taskObject.info = _taskObject.info.replace(jsonRegex, exampleHTML);
         }
+
         $html.taskInfo.html(_.template(html, _taskObject));
     }
 
