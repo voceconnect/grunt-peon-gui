@@ -77,18 +77,18 @@ var PeonGUI = (function () {
         </div>';
             _taskObject.info = _taskObject.info.replace(jsonRegex, exampleHTML);
         }
-        taskJSON = JSON.parse(_taskObject.config);
-        if (taskJSON) {
+        try {
+            taskJSON = JSON.parse(_taskObject.config);
             if (Object.keys(taskJSON).length > 0) { // has more than one configuration key
                 dropdownHTML = '<select id="task-select" class="pull-left">';
                 dropdownHTML += '<option>Select a Configuration</option>';
-                _.each(Object.keys(taskJSON), function(key){
+                _.each(Object.keys(taskJSON), function (key) {
                     dropdownHTML += '<option value="' + key + '">' + key + '</option>';
                 });
                 dropdownHTML += '<select>';
                 html += dropdownHTML;
             }
-        }
+        } catch (e) {}
         $html.taskInfo.html(_.template(html, _taskObject));
     }
 
@@ -164,6 +164,10 @@ var PeonGUI = (function () {
 
         $html.runTask.on('click', function (e) {
             e.preventDefault();
+            var $taskSelector = $('#task-select');
+            if ($taskSelector.length > 0) {
+                currentTask.name = currentTask.name + ":" + $taskSelector.val();
+            }
             project.socket.send(currentTask.name);
             disableActivity();
         });
