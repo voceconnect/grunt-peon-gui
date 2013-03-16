@@ -120,10 +120,10 @@ module.exports = (grunt) ->
         workerPort = @worker.getSocket()
         ps.findAPortNotInUse(8080, 8088, 'localhost', (err, port) ->
           appPath = that.path.resolve(__dirname, '../app')
-          grunt.file.write("#{appPath}/websocket.txt", workerPort)
           that.server = that.connect.createServer(that.connect.static(appPath))
           that.server.listen(port)
-          grunt.log.writeln "GUI running on localhost::#{port}"
+          grunt.log.writeln "GUI running on localhost:#{port}"
+          grunt.log.writeln "Manage this project on http://localhost:#{port}/?socket=#{workerPort}"
         )
 
     new PeonWebSocket().startWorker()

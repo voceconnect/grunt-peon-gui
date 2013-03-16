@@ -60,9 +60,8 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src='js/peon-gui.js'></script>
 <script>
-    jQuery.get("/websocket.txt", function (socket) {
-        var peonGui = new PeonGUI(socket);
-    });
+    var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [,""])[1].replace(/\+/g, '%20')) || null;
+    var peonGui = new PeonGUI(socket);
 </script>
 </body>
 </html>
