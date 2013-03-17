@@ -12,7 +12,9 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand">Project:</a>
+
             <p class="navbar-text pull-right"><img src="img/icon32.png"/></p>
+
             <p id='project-name' class="brand"></p>
         </div>
     </div>
@@ -34,11 +36,13 @@
             <div id="output-wrapper">
                 <header>
                     <h2>Output</h2>
+
                     <div id="running"
                          class="progress progress-success progress-striped active hidden">
                         <div class="bar" style="width: 100%; "></div>
                     </div>
-                    <a href="#" class="btn btn-mini pull-right" id="clear-console">
+                    <a href="#" class="btn btn-mini pull-right"
+                       id="clear-console">
                         clear output log
                     </a>
                 </header>
@@ -61,8 +65,28 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src='js/peon-gui.js'></script>
 <script>
-    var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [,""])[1].replace(/\+/g, '%20')) || null;
-    var peonGui = new PeonGUI(socket);
+    var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null,
+        guiTmpls = {
+            taskList : '<% _.each(projectEls, function(task) { %> <li><a href="#" data-task="<%= task.name %>"><%= task.name %><\/a><\/li><% }); %>',
+            taskInfo : '<h2><%= name %><\/h2><div class="well well-small"><%= info %><\/div><%= example %><%= configurations %><%= cliArgs %>',
+            accordian : '<% var divID = title.replace(/ /g, ""); %>\
+                <div class="accordion"> \
+                <div class="accordion-group"> \
+                <div class="accordion-heading"> \
+                <a class="accordion-toggle" data-toggle="collapse" href="#<%= divID %>"> \
+                <%= title %> <\/a> \
+                <\/div> \
+                <div id="<%= divID %>" class="accordion-body collapse"> \
+                <div class="accordion-inner"> \
+                    <pre><%= content %><\/pre> \
+                <\/div><\/div><\/div><\/div>',
+            dropdown : '<select id="task-config" class="pull-left"> \
+                <option><%= title %><\/option> \
+                <% _.each(options, function(key) { %> <option value="<%= key %>"><%= key %><\/option><% }); %> \
+                <\/select>',
+            outputLog : '<p><%= time %> - <%= message %> <\/p>'
+        },
+        peonGui = new PeonGUI(socket);
 </script>
 </body>
 </html>

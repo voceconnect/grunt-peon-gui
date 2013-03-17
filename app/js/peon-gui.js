@@ -1,6 +1,6 @@
 /*global window, document, console, $, jQuery, _, setTimeout, WebSocket,
  handleSocketOpen, handleSocketMessage, handleSocketClose, handleSocketError,
- parseInt, alert */
+ parseInt, alert, guiTmpls */
 
 var PeonGUI = (function () {
     "use-strict";
@@ -37,74 +37,48 @@ var PeonGUI = (function () {
     }
 
     /**
-     * @TODO refactor all of this garbage
      * @param task
      */
     function updateTaskInfo(task) {
         var _taskObject = project.tasks[task],
-            exampleHTML,
-            dropdownHTML,
             taskJSON,
-            html = '',
-            jsonRegex = /\`(\s*?.*?)*?\`/gi,
-            jsonExample = _taskObject.info.match(jsonRegex);
-        html += '<h2><%= name %></h2> \
-                <div><%= info %></div>';
-        if (_taskObject.config.indexOf('{') >= 0) {
-            html += '<div class="accordion" id="configurations"> \
-                <div class="accordion-group"> \
-                <div class="accordion-heading"> \
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#configurations" href="#collapseConfigurations"> \
-                Show Configuration(s) </a> \
-                </div> \
-                <div id="collapseConfigurations" class="accordion-body collapse"> \
-                <div class="accordion-inner"> \
-                    <pre><%= config %></pre> \
-                </div></div></div></div>';
-        } else {
-            html += '<p class="text-warning"><em>No configurations set. You can pass colon delimted arguments below.</em></p> \
-            <input type="text" id="task-config" />';
+            o = {
+                name: _taskObject.name,
+                info: _taskObject.info,
+                example: "",
+                configurations: "",
+                cliArgs: ""
+            },
+            codeRegex = /\`{1,3}(\s*?.*?)*?\`{1,3}/gi,
+            codeExample = _taskObject.info.match(codeRegex);
+        if (codeExample !== null) {
+            codeExample = codeExample[0].replace(/`/gi, '');
+            try {
+                codeExample = JSON.stringify(JSON.parse("{" + codeExample + "}"), null, 4);
+                o.example = _.template(guiTmpls.accordian, {title: "Show Help Example", content: codeExample});
+                o.info = _taskObject.info.replace(codeRegex, '');
+            } catch (error) {}
         }
-        if (jsonExample !== null) {
-            jsonExample = jsonExample[0].replace(/`/gi, '');
-            jsonExample = JSON.stringify(JSON.parse("{" + jsonExample + "}"), null, 4);
-            exampleHTML = '<div class="accordion" id="json-example"> \
-            <div class="accordion-group"> \
-            <div class="accordion-heading"> \
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#json-example" href="#collapseExample"> \
-                Show Help Example </a> \
-            </div> \
-            <div id="collapseExample" class="accordion-body collapse"> \
-            <div class="accordion-inner"> \
-            <pre> ' + jsonExample + '</pre> \
-            </div> \
-            </div> \
-            </div> \
-        </div>';
-            _taskObject.info = _taskObject.info.replace(jsonRegex, exampleHTML);
+        if (_taskObject.config.indexOf('{') >= 0) {
+            o.configurations = _.template(guiTmpls.accordian, {title: "Show Configurations", content: _taskObject.config});
+        } else {
+            o.configurations = '<p class="text-warning"><em>No configurations set. If needed, you can pass colon delimted arguments below.</em></p>';
+            o.cliArgs = '<input type="text" id="task-config" />';
         }
         try {
             taskJSON = JSON.parse(_taskObject.config);
             if (Object.keys(taskJSON).length > 1) {
-                dropdownHTML = '<select id="task-config" class="pull-left">';
-                dropdownHTML += '<option>Select a Configuration</option>';
-                _.each(Object.keys(taskJSON), function (key) {
-                    dropdownHTML += '<option value="' + key + '">' + key + '</option>';
-                });
-                dropdownHTML += '<select>';
-                html += dropdownHTML;
+                o.cliArgs = _.template(guiTmpls.dropdown, {title: "Select a Configuration", options: Object.keys(taskJSON)});
             }
         } catch (e) {}
-        $html.taskInfo.html(_.template(html, _taskObject));
+        $html.taskInfo.html(_.template(guiTmpls.taskInfo, o));
     }
 
     function setProject() {
         if (running === false) {
-            var projectEls, taskListTpl;
             $html.output.html('');
             if (project) {
-                taskListTpl = "<% _.each(projectEls, function(task) { %> <li><a href='#' data-task='<%= task.name %>'><%= task.name %></a></li><% }); %>";
-                $html.tasks.html(_.template(taskListTpl, {projectEls: project.tasks}));
+                $html.tasks.html(_.template(guiTmpls.taskList, {projectEls: project.tasks}));
             }
         }
     }
@@ -136,7 +110,7 @@ var PeonGUI = (function () {
                 enableActivity();
             }
             if (eventMessage.length > 1 && eventData.action !== 'connected' && eventData.action !== 'done') {
-                $html.output.prepend("<p>" + new Date().toString().split(' ')[4] + ' - ' + eventMessage + "</p>");
+                $html.output.prepend(_.template(guiTmpls.outputLog, {time: new Date().toString().split(' ')[4], message: eventMessage}));
             }
         }
 
