@@ -117,7 +117,11 @@ var PeonGUI = (function () {
     function handleSocketMessage(event) {
         if (event.data) {
             var eventData, eventMessage;
-            eventData = JSON.parse(event.data);
+            try {
+                eventData = JSON.parse(event.data);
+            } catch (e) {
+                eventData = {action: false};
+            }
             eventMessage = event.data;
             if (eventData && eventData.project) {
                 project = {
@@ -171,7 +175,7 @@ var PeonGUI = (function () {
         $html.runTask.on('click', function (e) {
             e.preventDefault();
             var $taskSelector = $('#task-config');
-            if ($taskSelector.length > 0) {
+            if ($taskSelector.length > 0 && $taskSelector.val().length > 0) {
                 currentTask.name = currentTask.name + ":" + $taskSelector.val();
             }
             project.socket.send(currentTask.name);
