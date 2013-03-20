@@ -19,6 +19,14 @@ module.exports = (grunt) ->
         process.on("SIGTERM", @killWorkers)
         @removeTasks(['gui'])
         @addConfigToTasks()
+        if grunt.file.exists(__dirname.replace("tasks/peon-gui/tasks", "peon.coffee"))
+          @gruntFilePath = __dirname.replace("tasks/peon-gui/tasks", "peon.coffee")
+        else if grunt.file.exists("Gruntfile.cofee")
+          @gruntFilePath = "Gruntfile.coffee"
+        else if grunt.file.exists("Gruntfile.js")
+          @gruntFilePath = "Gruntfile.js"
+        else
+          grunt.fatal("No Gruntfile found")
 
       addConfigToTasks : () ->
         config = grunt.config.get()
@@ -80,10 +88,9 @@ module.exports = (grunt) ->
                 ))
               else if Object.keys(that.tasks).indexOf(msg) > -1
                 connection.send("Running Task: #{msg}")
-                gruntFilePath = __dirname.replace("tasks/peon-gui/tasks", "peon.coffee")
                 args = [
                   '--gruntfile'
-                  gruntFilePath
+                  @gruntFilePath
                   '--base'
                   '.'
                   msg
