@@ -1,6 +1,6 @@
 {
     "name": "peon-gui",
-    "description": "Web interface for Grunt tasks",
+    "description": "Web interface for running Grunt tasks",
     "keywords": [
         "gruntplugin",
         "server",
@@ -28,7 +28,7 @@
     ],
     "main": "Gruntfile.js",
     "scripts": {
-        "test": "grunt test"
+        "test": "grunt nodeunit"
     },
     "engines": {
         "node": ">= 0.8.0"
