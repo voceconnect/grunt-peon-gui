@@ -1,5 +1,5 @@
 {
-    "name": "peon-gui",
+    "name": "grunt-peon-gui",
     "description": "Web interface for running Grunt tasks",
     "keywords": [
         "gruntplugin",
@@ -8,22 +8,22 @@
         "gui"
     ],
     "version": "0.1.0",
-    "homepage": "https://github.com/",
+    "homepage": "https://github.com/voceconnect/grunt-peon-gui",
     "author": {
         "name": "Mark Parolisi",
         "url": "http://markparolisi.com/"
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/"
+        "url": "git://github.com/voceconnect/grunt-peon-gui"
     },
     "bugs": {
-        "url": "https://github.com/ /issues"
+        "url": "https://github.com/voceconnect/grunt-peon-gui/issues"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/ /blob/master/LICENSE-MIT"
+            "url": "https://github.com/voceconnect/grunt-peon-gui/blob/master/LICENSE-MIT"
         }
     ],
     "main": "Gruntfile.js",
