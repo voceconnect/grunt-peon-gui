@@ -1,13 +1,13 @@
 /*global require, module */
 var grunt = require('grunt'),
     ps = require('portscanner'),
-    webSocket = require('../lib/peon-web-socket');
+    PeonWebSocket = require('../lib/peon-web-socket');
 
 
 
 module.exports = {
     setUp: function (callback) {
-        this.PWS = new webSocket();
+        this.PWS = new PeonWebSocket();
         callback();
     },
     tearDown: function (callback) {

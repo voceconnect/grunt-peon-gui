@@ -30,6 +30,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-coffeelint');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.registerTask('default', ['jshint', 'coffeelint', 'nodeunit']);
+    grunt.registerTask('default', ['coffee', 'jshint', 'coffeelint', 'nodeunit']);
 };

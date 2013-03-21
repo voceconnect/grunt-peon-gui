@@ -1,25 +1,40 @@
+###
+
+  @modue PeonGUIServer
+###
 class PeonGUIServer
-  grunt: require('grunt')
-  connect: require('connect')
-  path: require('path')
+  grunt = require('grunt')
+  connect = require('connect')
+  sServer = connect.static
+  path = require('path')
   server: false
   startPort = 8080
   endPort = 8088
+  onPort : 0
 
+  ###
+
+  @constructor
+  ###
   constructor: (worker) ->
     @worker = worker
 
+  ###
+
+  @method run
+  ###
   run: () ->
     ps = require('portscanner')
     that = @
     workerPort = @worker.getSocket()
     ps.findAPortNotInUse(startPort, endPort, 'localhost', (err, port) ->
-      appPath = that.path.resolve(__dirname, '../app')
-      that.server = that.connect.createServer(that.connect.static(appPath))
+      that.onPort = port
+      appPath = path.resolve(__dirname, '../app')
+      that.server = connect.createServer(sServer(appPath))
       that.server.listen(port)
-      that.grunt.log.writeln "GUI running on localhost:#{port}"
+      grunt.log.writeln "GUI running on localhost:#{port}"
       url = "http://localhost:#{port}/?socket=#{workerPort}"
-      that.grunt.log.writeln "Manage this project on #{url}"
+      grunt.log.writeln "Manage this project on #{url}"
     )
 
 module.exports = PeonGUIServer

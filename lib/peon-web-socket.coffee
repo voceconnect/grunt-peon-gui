@@ -18,11 +18,11 @@ class PeonWebSocket
     @addConfigToTasks()
     peonFile = __dirname.replace("tasks/peon-gui/tasks", "peon.coffee")
     if grunt.file.exists(peonFile)
-      gruntFilePath = peonFile
+      @gruntFilePath = peonFile
     else if grunt.file.exists("Gruntfile.cofee")
-      gruntFilePath = "Gruntfile.coffee"
+      @gruntFilePath = "Gruntfile.coffee"
     else if grunt.file.exists("Gruntfile.js")
-      gruntFilePath = "Gruntfile.js"
+      @gruntFilePath = "Gruntfile.js"
     else
       grunt.fatal("No Gruntfile found")
 
@@ -55,8 +55,8 @@ class PeonWebSocket
     that = @
     ps.findAPortNotInUse(61750, 61755, 'localhost', (err, port) ->
       that.projectPort = port
-      pgs = require("./PeonGUIServer")
-      new pgs(that).run()
+      PeonGUIServer = require('../lib/peon-gui-server');
+      new PeonGUIServer(that).run()
       if that.projectPort
         that.server.listen(port, () ->
           grunt.log.writeln("WebSocket running on localhost:#{port}")
@@ -89,7 +89,7 @@ class PeonWebSocket
             connection.send("Running Task: #{msg}")
             args = [
               '--gruntfile'
-              gruntFilePath
+              that.gruntFilePath
               '--base'
               '.'
               msg
