@@ -9,14 +9,15 @@ class PeonWebSocket
     response.end()
   )
 
-  constructor: () ->
+  constructor: (grunt) ->
     process.on("uncaughtException", @killWorkers)
     process.on("SIGINT", @killWorkers)
     process.on("SIGTERM", @killWorkers)
-    @tasks =  grunt.task._tasks
+    @tasks = grunt.task._tasks
+    @grunt = grunt
     @removeTasks(['gui'])
     @addConfigToTasks()
-    peonFile = __dirname.replace("tasks/peon-gui/tasks", "peon.coffee")
+    peonFile = __dirname.replace("tasks/peon-gui/lib", "peon.coffee")
     if grunt.file.exists(peonFile)
       @gruntFilePath = peonFile
     else if grunt.file.exists("Gruntfile.cofee")
@@ -55,7 +56,7 @@ class PeonWebSocket
     that = @
     ps.findAPortNotInUse(61750, 61755, 'localhost', (err, port) ->
       that.projectPort = port
-      PeonGUIServer = require('../lib/peon-gui-server');
+      PeonGUIServer = require('../lib/peon-gui-server')
       new PeonGUIServer(that).run()
       if that.projectPort
         that.server.listen(port, () ->
@@ -87,13 +88,14 @@ class PeonWebSocket
             ))
           else if Object.keys(that.tasks).indexOf(msg) > -1
             connection.send("Running Task: #{msg}")
-            args = [
-              '--gruntfile'
-              that.gruntFilePath
-              '--base'
-              '.'
-              msg
-            ]
+            if(that.gruntFilePath.indexOf "peon" > -1)
+              args = [
+                '--gruntfile'
+                that.gruntFilePath
+                '--base'
+                '.'
+                msg
+              ]
             command = spawn('grunt', args)
             that.workers.push(command)
             command.stdout.on('data', (data) ->
