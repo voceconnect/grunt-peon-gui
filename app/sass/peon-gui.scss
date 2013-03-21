@@ -1,0 +1,69 @@
+@import "compass/css3";
+@import "mixins";
+body {
+    padding-top: 60px;
+}
+#tasks {
+	border-right: none;
+	li {
+		a {
+			border-radius: 2px;
+			border: 1px solid #ddd;
+			color: #646464;
+			background: #fafafa;
+			@include gradient-vertical(#fafafa, #efefef);
+			@include transition(all .5s);
+			&:hover {
+				background: #4e525d;
+				@include gradient-vertical(#4e525d, #3c4049);
+				color: #fff;
+				border: 1px solid #3c4049;
+			}
+		}
+		&.active a {
+			@extend :hover;
+		}
+	}
+}
+#tabContent {
+	
+}
+#output-wrapper {
+	padding-top: .5em;
+	margin-top: 20px
+}
+#clear-console {
+	margin-top: 20px;
+}
+#output {
+    font-family: Courier;
+    color: #458B00;
+    background: #000;
+    border: 3px double #CCC;
+    padding: 1em;
+    margin-top: 0;
+}
+#task-select {
+    margin-right: 1.5em;
+}
+#notice {
+	text-align: center;
+}
+body.online #notice {
+	display: hidden; 
+	visibility: hidden;
+}
+body.offline #tasks, body.offline #output {
+	display: none;
+}
+body.offline #notice {
+	display: block; 
+	visibility: visible;
+}
+.accordion-toggle {
+	position: relative;
+	&:after {
+		content: '(+)';
+		font-weight: bold;
+	}
+}
