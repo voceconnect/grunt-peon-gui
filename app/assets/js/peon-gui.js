@@ -2,7 +2,7 @@
   var PeonGUI,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  window.PeonGUI = PeonGUI = (function() {
+  PeonGUI = (function() {
     var $html;
 
     $html = {
@@ -19,23 +19,23 @@
       notice: $("#notice")
     };
 
-    PeonGUI.prototype.running = false;
+    _Class.prototype.running = false;
 
-    PeonGUI.prototype.disableActivity = function() {
+    _Class.prototype.disableActivity = function() {
       this.running = true;
       $html.body.addClass('running');
       $html.progressBar.removeClass('hidden');
       return $html.tasks.find('a').prop('disabled', true);
     };
 
-    PeonGUI.prototype.enableActivity = function() {
+    _Class.prototype.enableActivity = function() {
       this.running = false;
       $html.body.removeClass('running');
       $html.progressBar.addClass('hidden');
       return $html.tasks.find('a').prop('disabled', false);
     };
 
-    PeonGUI.prototype.updateTaskInfo = function(task) {
+    _Class.prototype.updateTaskInfo = function(task) {
       var codeExample, codeRegex, error, o, taskJSON, tmplData, _taskObject;
 
       _taskObject = this.project.tasks[task];
@@ -81,7 +81,6 @@
           };
           o.cliArgs = _.template(guiTmpls.dropdown, tmplData);
         } else if (Object.keys(taskJSON).length > 0) {
-          o.configurations = "<p class=\"text-warning\">\n<em>\nOnly one configuration target defined.\n</em>\n</p>";
           o.cliArgs = '';
         }
       } catch (_error) {
@@ -91,7 +90,7 @@
       return $html.taskInfo.html(_.template(guiTmpls.taskInfo, o));
     };
 
-    PeonGUI.prototype.setProject = function() {
+    _Class.prototype.setProject = function() {
       var tmplData;
 
       if (this.running === false) {
@@ -106,13 +105,13 @@
       }
     };
 
-    PeonGUI.prototype.handleSocketOpen = function() {
+    _Class.prototype.handleSocketOpen = function() {
       $html.body.removeClass('offline').addClass('online');
       this.socket.send('connect');
       return this.socket;
     };
 
-    PeonGUI.prototype.handleSocketMessage = function(event) {
+    _Class.prototype.handleSocketMessage = function(event) {
       var error, eventData, eventMessage, tmplData;
 
       if (event.data) {
@@ -141,24 +140,23 @@
             time: new Date().toString().split(' ')[4],
             message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)/gi, "")
           };
-          $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
-          return console.log(eventMessage);
+          return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
         }
       } else {
         return console.log(event);
       }
     };
 
-    PeonGUI.prototype.handleSocketClose = function(e) {
+    _Class.prototype.handleSocketClose = function(e) {
       return $html.notice.removeClass('hidden');
     };
 
-    PeonGUI.prototype.handleSocketError = function(error) {
+    _Class.prototype.handleSocketError = function(error) {
       $html.notice.removeClass('hidden');
       return console.log(error);
     };
 
-    PeonGUI.prototype.connect = function(wsPort) {
+    _Class.prototype.connect = function(wsPort) {
       this.socket = new WebSocket("ws://localhost:" + wsPort, 'echo-protocol');
       this.socket.onopen = this.handleSocketOpen;
       this.socket.onmessage = this.handleSocketMessage;
@@ -167,7 +165,7 @@
       return this.socket;
     };
 
-    PeonGUI.prototype.bindButtons = function() {
+    _Class.prototype.bindButtons = function() {
       var that;
 
       that = this;
@@ -208,7 +206,7 @@
       });
     };
 
-    function PeonGUI(wsPort) {
+    function _Class(wsPort) {
       this.handleSocketError = __bind(this.handleSocketError, this);
       this.handleSocketClose = __bind(this.handleSocketClose, this);
       this.handleSocketMessage = __bind(this.handleSocketMessage, this);
@@ -216,8 +214,12 @@
       console.log(this);
     }
 
-    return PeonGUI;
+    return _Class;
 
   })();
+
+  if (window) {
+    window.PeonGUI = PeonGUI;
+  }
 
 }).call(this);

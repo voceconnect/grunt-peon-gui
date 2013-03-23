@@ -1,4 +1,4 @@
-window.PeonGUI = class PeonGUI
+PeonGUI = class
 
   $html =
     body: $("body")
@@ -69,13 +69,6 @@ window.PeonGUI = class PeonGUI
           options: Object.keys(taskJSON)
         o.cliArgs = _.template(guiTmpls.dropdown, tmplData)
       else if Object.keys(taskJSON).length > 0
-        o.configurations = """
-                           <p class="text-warning">
-                           <em>
-                           Only one configuration target defined.
-                           </em>
-                           </p>
-                           """
         o.cliArgs = ''
     catch error
       console.log error
@@ -171,3 +164,6 @@ window.PeonGUI = class PeonGUI
   constructor: (wsPort) ->
     @connect(wsPort)
     console.log @
+
+
+if window then window.PeonGUI = PeonGUI
