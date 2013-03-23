@@ -91,10 +91,13 @@ body.offline #notice {
   color: #568507;
   decoration:  none;
   &:after {
-    content: '(+)';
+    content: '-';
     font-weight: bold;
   }
   &:hover {
     color: #568507;
+  }
+  &.collapsed:after {
+    content: '+';
   }
 }

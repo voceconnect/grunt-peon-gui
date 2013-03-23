@@ -120,10 +120,14 @@ body.offline #notice {
 }
 /* line 93, ../../sass/peon-gui.scss */
 .accordion-toggle:after {
-  content: '(+)';
+  content: '-';
   font-weight: bold;
 }
 /* line 97, ../../sass/peon-gui.scss */
 .accordion-toggle:hover, #tasks li.active a.accordion-toggle {
   color: #568507;
+}
+/* line 100, ../../sass/peon-gui.scss */
+.accordion-toggle.collapsed:after {
+  content: '+';
 }
