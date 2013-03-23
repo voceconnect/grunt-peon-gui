@@ -62,7 +62,7 @@
       } catch (_error) {
         error = _error;
       }
-      if (_taskObject.config.indexOf('{') >= 0) {
+      if (_taskObject.config.indexOf('{') > -1) {
         tmplData = {
           title: "Show Configurations",
           content: _taskObject.config
@@ -98,7 +98,7 @@
       }
       if (this.project) {
         tmplData = {
-          projectEls: this.project.tasks
+          tasks: Object.keys(this.project.tasks).sort()
         };
         $html.tasks.html(_.template(guiTmpls.taskList, tmplData));
         return this.bindButtons();
@@ -138,7 +138,7 @@
         if (eventMessage.length > 1 && eventData.action !== 'connected' && eventData.action !== 'done') {
           tmplData = {
             time: new Date().toString().split(' ')[4],
-            message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)/gi, "")
+            message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)|(\[90m)/gi, "")
           };
           return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
         }

@@ -17,7 +17,7 @@ class PeonWebSocket
     @grunt = grunt
     @removeTasks(['gui'])
     @addConfigToTasks()
-    peonFile = __dirname.replace("lib", "peon.coffee")
+    peonFile = process.env['HOME'] + "/bin/peon/global/peon.coffee"
     if grunt.file.exists(peonFile)
       @gruntFilePath = peonFile
     else if grunt.file.exists("Gruntfile.cofee")
@@ -28,7 +28,7 @@ class PeonWebSocket
       grunt.fatal("No Gruntfile found")
 
   addConfigToTasks: () ->
-    config = grunt.config.get()
+    config = @grunt.config.get()
     that = @
     grunt.util._.forEach(@tasks, (task, k)->
       taskConfig = JSON.stringify(config[k], null, 4) || "No configuration"

@@ -46,7 +46,7 @@ PeonGUI = class
       o.example = _.template(guiTmpls.accordian, tmplData)
       o.info = _taskObject.info.replace(codeRegex, '')
     catch error
-    if _taskObject.config.indexOf('{') >= 0
+    if _taskObject.config.indexOf('{') > -1
       tmplData =
         title: "Show Configurations"
         content: _taskObject.config
@@ -80,7 +80,7 @@ PeonGUI = class
       $html.output.html('')
     if @project
       tmplData =
-        projectEls: @project.tasks
+        tasks: Object.keys(@project.tasks).sort()
       $html.tasks.html(_.template(guiTmpls.taskList, tmplData))
       @bindButtons()
 
@@ -109,7 +109,7 @@ PeonGUI = class
       if eventMessage.length > 1 and eventData.action isnt 'connected' and eventData.action isnt 'done'
         tmplData =
           time: new Date().toString().split(' ')[4]
-          message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)/gi, "")
+          message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)|(\[90m)/gi, "")
         $html.output.prepend(_.template(guiTmpls.outputLog, tmplData))
     else
       console.log event

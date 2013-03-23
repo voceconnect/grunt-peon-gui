@@ -81,7 +81,7 @@
 <script>
     var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null,
             guiTmpls = {
-                taskList: '<% _.each(projectEls, function(task) { %> <li><a href="#" data-task="<%= task.name %>"><%= task.name %><\/a><\/li><% }); %>',
+                taskList: '<% _.each(tasks, function(task) { %> <li><a href="#" data-task="<%= task %>"><%= task %><\/a><\/li><% }); %>',
                 taskInfo: '<h2><%= name %><\/h2><div class="well well-small"><%= info %><\/div><%= example %><%= configurations %><%= cliArgs %>',
                 accordian: '<% var divID = title.replace(/ /g, ""); %>\
                 <div class="accordion"> \
