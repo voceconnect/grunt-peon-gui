@@ -43,8 +43,14 @@ body {
   margin-top: 20px
 }
 
+#running {
+  float: right;
+  width:  80%;
+  margin-top: 12px;
+}
+
 #clear-console {
-  margin-top: 20px;
+  clear: both;
 }
 
 #output {
@@ -54,6 +60,8 @@ body {
   border: 3px double #CCC;
   padding: 1em;
   margin-top: 0;
+  overflow-y: auto;
+  max-height: 400px;
 }
 
 #task-select {
