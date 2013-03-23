@@ -23,6 +23,7 @@ _Run this task with the `grunt gui` command._
 
 ## Release History
 
+ * 2013-03-22   v0.2.0   App now in CoffeeScript.
  * 2013-03-21   v0.1.0   Initial release.
 
 ---
