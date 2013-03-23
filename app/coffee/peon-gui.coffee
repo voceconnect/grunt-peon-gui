@@ -116,7 +116,7 @@ window.PeonGUI = class PeonGUI
       if eventMessage.length > 1 and eventData.action isnt 'connected' and eventData.action isnt 'done'
         tmplData =
           time: new Date().toString().split(' ')[4]
-          message: eventMessage
+          message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)/gi, "")
         $html.output.prepend(_.template(guiTmpls.outputLog, tmplData))
     else
       console.log event

@@ -139,9 +139,10 @@
         if (eventMessage.length > 1 && eventData.action !== 'connected' && eventData.action !== 'done') {
           tmplData = {
             time: new Date().toString().split(' ')[4],
-            message: eventMessage
+            message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)/gi, "")
           };
-          return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
+          $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
+          return console.log(eventMessage);
         }
       } else {
         return console.log(event);
