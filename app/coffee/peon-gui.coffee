@@ -46,7 +46,6 @@ window.PeonGUI = class PeonGUI
       o.example = _.template(guiTmpls.accordian, tmplData)
       o.info = _taskObject.info.replace(codeRegex, '')
     catch error
-      console.log error
     if _taskObject.config.indexOf('{') >= 0
       tmplData =
         title: "Show Configurations"
@@ -102,7 +101,6 @@ window.PeonGUI = class PeonGUI
       try
         eventData = JSON.parse(event.data);
       catch error
-        console.log error
         eventData =
           action: false
       eventMessage = event.data
@@ -110,7 +108,6 @@ window.PeonGUI = class PeonGUI
         @project =
           name: eventData.project
           port: parseInt(eventData.port, 10)
-          socket: socket
           tasks: eventData.tasks
         @setProject()
         $html.projectName.html(@project.name)

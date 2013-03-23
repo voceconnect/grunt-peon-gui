@@ -61,7 +61,6 @@
         o.info = _taskObject.info.replace(codeRegex, '');
       } catch (_error) {
         error = _error;
-        console.log(error);
       }
       if (_taskObject.config.indexOf('{') >= 0) {
         tmplData = {
@@ -121,7 +120,6 @@
           eventData = JSON.parse(event.data);
         } catch (_error) {
           error = _error;
-          console.log(error);
           eventData = {
             action: false
           };
@@ -131,7 +129,6 @@
           this.project = {
             name: eventData.project,
             port: parseInt(eventData.port, 10),
-            socket: socket,
             tasks: eventData.tasks
           };
           this.setProject();

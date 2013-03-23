@@ -17,7 +17,7 @@ class PeonWebSocket
     @grunt = grunt
     @removeTasks(['gui'])
     @addConfigToTasks()
-    peonFile = __dirname.replace("tasks/peon-gui/lib", "peon.coffee")
+    peonFile = __dirname.replace("lib", "peon.coffee")
     if grunt.file.exists(peonFile)
       @gruntFilePath = peonFile
     else if grunt.file.exists("Gruntfile.cofee")
@@ -43,9 +43,10 @@ class PeonWebSocket
     )
 
   killWorkers: () ->
-    @workers.forEach((worker) ->
-      process.kill(worker)
-    )
+    if @workers
+      @workers.forEach((worker) ->
+        process.kill(worker)
+      )
     process.exit()
 
   getSocket: ()->
@@ -96,10 +97,13 @@ class PeonWebSocket
                 '.'
                 msg
               ]
+            grunt.log.writeln('Running: grunt ' + args.join(" "))
             command = spawn('grunt', args)
             that.workers.push(command)
             command.stdout.on('data', (data) ->
-              if data then connection.send(data.toString())
+              if data
+                connection.send(data.toString())
+                grunt.log.writeln(data.toString())
             )
             command.stdout.on('end', (data) ->
               connection.sendUTF(JSON.stringify({ action: 'done'}))
