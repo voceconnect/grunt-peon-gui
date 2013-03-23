@@ -14,7 +14,14 @@ module.exports = function (grunt) {
             app: {
                 options: {
                     sassDir: 'app/sass',
-                    cssDir: 'app/css'
+                    cssDir: 'app/assets/css'
+                }
+            }
+        },
+        coffee: {
+            app: {
+                files: {
+                    'app/assets/js/peon-gui.js': 'app/coffee/peon-gui.coffee'
                 }
             }
         },
@@ -23,14 +30,22 @@ module.exports = function (grunt) {
                 'Gruntfile.js',
                 'app/js/*.js',
                 '<%= nodeunit.tests %>'
-            ],
-            options: { }
+            ]
         },
         coffeelint: {
             app: ['lib/*.coffee', 'tasks/*.coffee']
         },
         nodeunit: {
             tests: ['tests/*_test.js']
+        },
+        watch: {
+            app: {
+                files: ['**/*.coffee', '**/*.scss'],
+                tasks: ['default'],
+                options: {
+                    nospawn: true
+                }
+            }
         }
     });
 
@@ -38,7 +53,9 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-coffeelint');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.registerTask('default', ['sass', 'jshint', 'coffeelint', 'nodeunit']);
+    grunt.registerTask('default', ['coffeelint', 'coffee', 'compass', 'jshint', 'nodeunit']);
 };

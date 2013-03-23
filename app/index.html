@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>Peon GUI</title>
-    <link rel="shortcut icon" href="img/icon16.png">
+    <link rel="shortcut icon" href="assets/img/icon16.png">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"
           rel="stylesheet">
-    <link rel='stylesheet' href='css/peon-gui.css'>
+    <link rel='stylesheet' href='assets/css/peon-gui.css'>
 </head>
 <body class="offline">
 <header id='projects' class="navbar navbar-inverse navbar-fixed-top">
@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <a class="brand">Project:</a>
 
-            <p class="navbar-text pull-right"><img src="img/icon32.png"/></p>
+            <p class="navbar-text pull-right"><img src="assets/img/icon32.png"/></p>
 
             <p id='project-name' class="brand"></p>
         </div>
@@ -51,7 +51,7 @@
             </div>
         </section>
         <section id='notice' class="span12 hidden">
-            <p><img src='img/icon128.png' alt='Grunt'/></p>
+            <p><img src='assets/img/icon128.png' alt='Grunt'/></p>
             <h4>No projects detected.</h4>
 
             <p>
@@ -60,10 +60,10 @@
         </section>
     </div>
 </div>
-<script src='js/lib/jquery.min.js'></script>
-<script src='js/lib/lodash.min.js'></script>
+<script src='assets/js/lib/jquery.min.js'></script>
+<script src='assets/js/lib/lodash.min.js'></script>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-<script src='js/peon-gui.js'></script>
+<script src='assets/js/peon-gui.js'></script>
 <script>
     var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null,
         guiTmpls = {

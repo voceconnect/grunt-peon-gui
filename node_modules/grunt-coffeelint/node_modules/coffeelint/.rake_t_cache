@@ -1,0 +1,5 @@
+rake compile   # Compile the source.
+rake lint      # Lint the linter.
+rake lint:csv  # Lint the linter.
+rake publish   # Publish the package.
+rake test      # Run unit tests.
