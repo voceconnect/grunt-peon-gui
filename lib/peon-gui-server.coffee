@@ -25,6 +25,7 @@ class PeonGUIServer
   ###
   run: () ->
     ps = require('portscanner')
+    exec = require('child_process').exec
     that = @
     workerPort = @worker.getSocket()
     ps.findAPortNotInUse(startPort, endPort, 'localhost', (err, port) ->
@@ -35,6 +36,9 @@ class PeonGUIServer
       grunt.log.writeln "GUI running on localhost:#{port}"
       url = "http://localhost:#{port}/?socket=#{workerPort}"
       grunt.log.writeln "Manage this project on #{url}"
+      exec("open #{url}", (err, stdout, stderr)->
+
+      )
     )
 
 module.exports = PeonGUIServer
