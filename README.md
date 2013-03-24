@@ -23,6 +23,9 @@ _Run this task with the `grunt gui` command._
 
 ## Release History
 
+ * 2013-03-24   v0.3.0   Launch browser on task start.
+                         Can run completely offline.
+                         Style updates.
  * 2013-03-22   v0.2.0   App now in CoffeeScript.
  * 2013-03-21   v0.1.0   Initial release.
 

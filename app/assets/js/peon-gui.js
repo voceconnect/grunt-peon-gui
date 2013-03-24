@@ -138,7 +138,7 @@
         if (eventMessage.length > 1 && eventData.action !== 'connected' && eventData.action !== 'done') {
           tmplData = {
             time: new Date().toString().split(' ')[4],
-            message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)|(\[90m)/gi, "")
+            message: eventMessage.replace(/(\[\d+m)/gi, "")
           };
           return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
         }
@@ -185,12 +185,13 @@
         return $('html,body').scrollTop(0);
       });
       $html.runTask.on('click', function(e) {
-        var $taskSelector;
+        var $taskSelector, taskSelectorVal;
 
         e.preventDefault();
         $taskSelector = $('#task-config');
         if ($taskSelector && $taskSelector.val()) {
-          that.currentTask.name = that.currentTask.name + ":" + $taskSelector.val();
+          taskSelectorVal = $taskSelector.val();
+          that.currentTask.name = "" + that.currentTask.name + ":" + taskSelectorVal;
         }
         that.socket.send(that.currentTask.name);
         return that.disableActivity();

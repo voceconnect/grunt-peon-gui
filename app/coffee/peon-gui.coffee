@@ -92,7 +92,7 @@ PeonGUI = class
   handleSocketMessage: (event) =>
     if event.data
       try
-        eventData = JSON.parse(event.data);
+        eventData = JSON.parse(event.data)
       catch error
         eventData =
           action: false
@@ -106,10 +106,12 @@ PeonGUI = class
         $html.projectName.html(@project.name)
       else if eventData and eventData.action is 'done'
         @enableActivity()
-      if eventMessage.length > 1 and eventData.action isnt 'connected' and eventData.action isnt 'done'
+      if eventMessage.length > 1 and
+      eventData.action isnt 'connected' and
+      eventData.action isnt 'done'
         tmplData =
           time: new Date().toString().split(' ')[4]
-          message: eventMessage.replace(/(\[32m)|(\[24m)|(\[4m)|(\[39m)|(\[90m)/gi, "")
+          message: eventMessage.replace(/(\[\d+m)/gi, "")
         $html.output.prepend(_.template(guiTmpls.outputLog, tmplData))
     else
       console.log event
@@ -147,7 +149,8 @@ PeonGUI = class
       e.preventDefault()
       $taskSelector = $('#task-config')
       if $taskSelector and $taskSelector.val()
-        that.currentTask.name = that.currentTask.name + ":" + $taskSelector.val()
+        taskSelectorVal = $taskSelector.val()
+        that.currentTask.name = "#{that.currentTask.name}:#{taskSelectorVal}"
       that.socket.send(that.currentTask.name)
       that.disableActivity()
     )
