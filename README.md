@@ -1,4 +1,5 @@
 # grunt-peon-gui
+![Peon](https://raw.github.com/voceconnect/grunt-peon-gui/master/app/assets/img/screen.png)
 
 > Run a local web GUI for Grunt tasks
 
