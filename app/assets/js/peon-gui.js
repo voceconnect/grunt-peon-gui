@@ -36,7 +36,7 @@
     };
 
     _Class.prototype.updateTaskInfo = function(task) {
-      var codeExample, codeRegex, error, o, taskJSON, tmplData, _taskObject;
+      var codeExample, codeRegex, error, o, taskJSON, taskJSONlist, tmplData, _taskObject;
 
       _taskObject = this.project.tasks[task];
       o = {
@@ -75,9 +75,13 @@
       try {
         taskJSON = JSON.parse(_taskObject.config);
         if (Object.keys(taskJSON).length > 1) {
+          if ($.inArray(Object.keys(taskJSON), 'options')) {
+            taskJSONlist = Object.keys(taskJSON);
+            taskJSONlist.splice(taskJSONlist.indexOf('options'), 1);
+          }
           tmplData = {
             title: "Select a Configuration",
-            options: Object.keys(taskJSON)
+            options: taskJSONlist
           };
           o.cliArgs = _.template(guiTmpls.dropdown, tmplData);
         } else if (Object.keys(taskJSON).length > 0) {
