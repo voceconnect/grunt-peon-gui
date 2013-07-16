@@ -15,17 +15,9 @@ class PeonWebSocket
     process.on("SIGTERM", @killWorkers)
     @tasks = grunt.task._tasks
     @grunt = grunt
+    @gruntFilePath = grunt.cli.options.gruntfile || 'Gruntfile.js'
     @removeTasks(['gui'])
     @addConfigToTasks()
-    peonFile = process.env['HOME'] + "/bin/peon/global/peon.coffee"
-    if grunt.file.exists(peonFile)
-      @gruntFilePath = peonFile
-    else if grunt.file.exists("Gruntfile.cofee")
-      @gruntFilePath = "Gruntfile.coffee"
-    else if grunt.file.exists("Gruntfile.js")
-      @gruntFilePath = "Gruntfile.js"
-    else
-      grunt.fatal("No Gruntfile found")
 
   addConfigToTasks: () ->
     config = @grunt.config.get()
