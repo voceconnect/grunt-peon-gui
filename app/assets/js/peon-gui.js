@@ -37,7 +37,6 @@
 
     _Class.prototype.updateTaskInfo = function(task) {
       var codeExample, codeRegex, error, o, taskJSON, taskJSONlist, tmplData, _taskObject;
-
       _taskObject = this.project.tasks[task];
       o = {
         name: _taskObject.name,
@@ -96,7 +95,6 @@
 
     _Class.prototype.setProject = function() {
       var tmplData;
-
       if (this.running === false) {
         $html.output.html('');
       }
@@ -117,7 +115,6 @@
 
     _Class.prototype.handleSocketMessage = function(event) {
       var error, eventData, eventMessage, tmplData;
-
       if (event.data) {
         try {
           eventData = JSON.parse(event.data);
@@ -171,11 +168,9 @@
 
     _Class.prototype.bindButtons = function() {
       var that;
-
       that = this;
       $html.tasks.on('click', 'a', function(e) {
         var taskName;
-
         e.preventDefault();
         taskName = $(this).data('task');
         $(this).parent('li').siblings().removeClass('active');
@@ -190,7 +185,6 @@
       });
       $html.runTask.on('click', function(e) {
         var $taskSelector, taskSelectorVal;
-
         e.preventDefault();
         $taskSelector = $('#task-config');
         if ($taskSelector && $taskSelector.val()) {
@@ -215,7 +209,8 @@
       this.handleSocketError = __bind(this.handleSocketError, this);
       this.handleSocketClose = __bind(this.handleSocketClose, this);
       this.handleSocketMessage = __bind(this.handleSocketMessage, this);
-      this.handleSocketOpen = __bind(this.handleSocketOpen, this);      this.connect(wsPort);
+      this.handleSocketOpen = __bind(this.handleSocketOpen, this);
+      this.connect(wsPort);
       console.log(this);
     }
 

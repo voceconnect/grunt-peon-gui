@@ -23,6 +23,7 @@ _Run this task with the `grunt gui` command._
 
 
 ## Release History
+ * 2013-10-31   v0.5.0   Cleanup.
  * 2013-07-15   v0.4.0   Use gruntfile from grunt object.
  * 2013-03-24   v0.3.0   Launch browser on task start. Can run completely offline. Style updates.
  * 2013-03-22   v0.2.0   App now in CoffeeScript.
