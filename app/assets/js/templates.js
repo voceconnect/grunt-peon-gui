@@ -46,7 +46,7 @@ this["guiTmpls"]["noConfigs"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += ' <p class="text-warning">\n    <em>\n    No configurations set.\n    If needed, you can pass colon delimted arguments below.\n    </em>\n</p>';
+__p += ' <p class="text-warning">\n    <em>\n    No configurations set.\n    If needed, you can pass colon delimited arguments below.\n    </em>\n</p>';
 
 }
 return __p
@@ -70,17 +70,17 @@ this["guiTmpls"]["taskInfo"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<h2>' +
+__p += '<div class="col-sm-12">\n    <h2>' +
 ((__t = ( name )) == null ? '' : __t) +
-'</h2>\n<div class="well well-small">\n    ' +
+'</h2>\n</div>\n<div class="col-sm-6">\n    Task Description:\n    <div class="description">\n        ' +
 ((__t = ( info )) == null ? '' : __t) +
-'\n</div>\n' +
+'\n    </div>\n    ' +
 ((__t = ( example )) == null ? '' : __t) +
-'\n' +
+'\n</div>\n<div class="col-sm-6">\n    Configurations\n    <div class="configurations">\n        ' +
 ((__t = ( configurations )) == null ? '' : __t) +
-'\n' +
+'\n        ' +
 ((__t = ( cliArgs )) == null ? '' : __t) +
-'\n';
+'\n    </div>\n</div>\n';
 
 }
 return __p
@@ -93,7 +93,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  _.each(tasks, function(task) { ;
-__p += '\n    <li class="btn btn-default btn-sm"><a href="#" data-task="' +
+__p += '\n    <li><a href="#" class="btn btn-primary btn-sm" data-task="' +
 ((__t = ( task )) == null ? '' : __t) +
 '">' +
 ((__t = ( task )) == null ? '' : __t) +

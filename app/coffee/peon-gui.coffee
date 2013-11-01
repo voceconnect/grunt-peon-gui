@@ -47,10 +47,7 @@ PeonGUI = class
       o.info = _taskObject.info.replace(codeRegex, '')
     catch error
     if _taskObject.config.indexOf('{') > -1
-      tmplData =
-        title: "Show Configurations"
-        content: _taskObject.config
-      o.configurations = guiTmpls.accordian(tmplData)
+      o.configurations = _taskObject.config
     else
       o.configurations = guiTmpls.noConfigs({});
       o.cliArgs = '<input type="text" id="task-config" />'

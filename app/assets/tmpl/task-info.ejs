@@ -1,7 +1,17 @@
-<h2><%= name %></h2>
-<div class="well well-small">
-    <%= info %>
+<div class="col-sm-12">
+    <h2><%= name %></h2>
 </div>
-<%= example %>
-<%= configurations %>
-<%= cliArgs %>
+<div class="col-sm-6">
+    Task Description:
+    <div class="description">
+        <%= info %>
+    </div>
+    <%= example %>
+</div>
+<div class="col-sm-6">
+    Configurations
+    <div class="configurations">
+        <%= configurations %>
+        <%= cliArgs %>
+    </div>
+</div>

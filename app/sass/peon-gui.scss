@@ -1,32 +1,35 @@
 @import "compass/css3";
 
 body {
-  padding-top: 100px;
+  padding: 2em 0;
 }
+
 h1, h2, h3 {
   margin: 0;
 }
+
+#projects {
+
+}
+
 #tasks {
-  border-right: none;
-  float: none;
-  margin-right: 0px;
+  margin: 0;
+  padding: 0;
   li {
+    display: block;
     a {
-      color: #fffff;
-      border: none;
-      background: none;
+      display: block;
+      margin-bottom: 0.5em;
       &:hover {
-        border: none;
-        background: none;
-        text-decoration: none;
       }
     }
   }
 }
 
 #tabContent {
-  padding:  0 10px;
+
 }
+
 
 #output-wrapper {
   padding-top: .5em;
@@ -55,7 +58,7 @@ h1, h2, h3 {
 }
 
 #task-select {
-  margin-right: 1.5em;
+
 }
 
 #notice {

@@ -3,28 +3,23 @@
 <head>
     <title>Peon GUI</title>
     <link rel="shortcut icon" href="assets/img/icon16.png">
-    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='assets/css/peon-gui.css'>
+    <link href="assets/css/lib/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/peon-gui.css">
 </head>
 <body class="offline">
-<header id='projects' class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <p class="navbar-text pull-right">
-            <img src="assets/img/icon32.png"/>
-        </p>
-        <a class="navbar-brand">Project:</a>
-        <p id='project-name' class="navbar-brand"></p>
-    </div>
-</header>
 <div class="container-fluid">
-    <div class="row-fluid">
-        <section id='tasks-list' class="col-sm-2">
-            <div class="tabbable tabs-left sidebar-nav">
-                <ul id="tasks" class="nav nav-tabs nav-stacked"></ul>
-            </div>
+    <div id="left" class="col-sm-2">
+        <h5 class="text-center"><span id="project-name"></span></h5>
+        <section id="tasks-list">
+            <h3>Tasks</h3>
+            <ul id="tasks" class=""></ul>
         </section>
-        <section class="col-sm-10" id="tabContent">
+    </div>
+    <div id="right" class="col-sm-10">
+        <section id="tabContent">
             <div id="task-info">
+                <p class="text-center pull-right"><img src="assets/img/icon128.png"/></p>
+
                 <h2>Welcome to the Peon GUI</h2>
 
                 <p>
@@ -40,43 +35,41 @@
                 </p>
             </div>
             <div id="action-buttons" class="hidden">
-                <a href='#' class='btn btn-success' id='run-task'>Run</a>&nbsp;
-                <a href='#' id='kill-task' class='btn btn-danger'>Stop</a>
+                <a href="#" class="btn btn-success" id="run-task">Run</a>&nbsp;
+                <a href="#" id="kill-task" class="btn btn-danger">Stop</a>
             </div>
-            <div class="clearfix"></div>
             <div id="output-wrapper" class="well">
-                <header>
+                <div class="col-sm-12">
                     <div id="running"
-                         class="progress progress-success progress-striped active hidden">
-                        <div class="bar" style="width: 100%"></div>
+                         class="progress progress-striped active hidden">
+                        <div class="progress-bar progress-bar-success" style="width: 100%"></div>
                     </div>
                     <h2>Output</h2>
-                    <a href="#" class="btn btn-mini pull-right"
-                       id="clear-console">
-                        clear output log
-                    </a>
-                </header>
-                <div class="clearfix"></div>
-                <div id='output'>No output.</div>
+                </div>
+                <a href="#" class="btn btn-mini pull-right"
+                   id="clear-console">
+                    clear output log
+                </a>
+                    <div id="output" class="col-sm-12">No output.</div>
             </div>
         </section>
-        <section id='notice' class="col-sm-12 hidden">
-            <p><img src='assets/img/icon128.png' alt='Grunt'/></p>
-            <h4>No project detected.</h4>
-
-            <p>
-                <small>Is the <code>gui</code> task running?</small>
-            </p>
-        </section>
     </div>
+    <section id="notice" class="col-sm-12 hidden">
+        <p><img src="assets/img/icon128.png" alt="Grunt"/></p>
+        <h4>No project detected.</h4>
+
+        <p>
+            <small>Is the <code>gui</code> task running?</small>
+        </p>
+    </section>
 </div>
-<script src='assets/js/lib/jquery.min.js'></script>
-<script src='assets/js/lib/lodash.min.js'></script>
+<script src="assets/js/lib/jquery.min.js"></script>
+<script src="assets/js/lib/lodash.min.js"></script>
 <script src="assets/js/lib/bootstrap.min.js"></script>
-<script src='assets/js/peon-gui.js'></script>
-<script src='assets/js/templates.js'></script>
+<script src="assets/js/peon-gui.js"></script>
+<script src="assets/js/templates.js"></script>
 <script>
-    var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null,
+    var socket = decodeURIComponent((new RegExp("[?|&]" + "socket" + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [, ""])[1].replace(/\+/g, "%20")) || null,
             peonGui = new PeonGUI(socket);
 </script>
 </body>
