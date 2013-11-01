@@ -26,7 +26,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<select id="task-config" class="pull-left">\n    <option>' +
+__p += '<select id="task-config" class="form-control">\n    <option>' +
 ((__t = ( title )) == null ? '' : __t) +
 '</option>\n    ';
  _.each(options, function(key) { ;

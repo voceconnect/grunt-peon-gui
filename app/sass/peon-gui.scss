@@ -85,6 +85,9 @@ body {
     .description {
       background-color: #b3d0e0;
       padding: 1em;
+      .form-control {
+        margin-top: 1em;
+      }
     }
     pre {
       outline: 1px solid #ccc;
