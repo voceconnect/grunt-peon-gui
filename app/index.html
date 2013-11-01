@@ -4,30 +4,26 @@
     <title>Peon GUI</title>
     <link rel="shortcut icon" href="assets/img/icon16.png">
     <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel='stylesheet' href='assets/css/peon-gui.css'>
 </head>
 <body class="offline">
-<header id='projects' class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand">Project:</a>
-
-            <p class="navbar-text pull-right"><img src="assets/img/icon32.png"/>
-            </p>
-
-            <p id='project-name' class="brand"></p>
-        </div>
+<header id='projects' class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <img src="assets/img/icon32.png"/>
+        </p>
+        <a class="navbar-brand">Project:</a>
+        <p id='project-name' class="navbar-brand"></p>
     </div>
 </header>
 <div class="container-fluid">
     <div class="row-fluid">
-        <section id='tasks-list' class="span2">
+        <section id='tasks-list' class="col-sm-2">
             <div class="tabbable tabs-left sidebar-nav">
                 <ul id="tasks" class="nav nav-tabs nav-stacked"></ul>
             </div>
         </section>
-        <section class="span10" id="tabContent">
+        <section class="col-sm-10" id="tabContent">
             <div id="task-info">
                 <h2>Welcome to the Peon GUI</h2>
 
@@ -64,7 +60,7 @@
                 <div id='output'>No output.</div>
             </div>
         </section>
-        <section id='notice' class="span12 hidden">
+        <section id='notice' class="col-sm-12 hidden">
             <p><img src='assets/img/icon128.png' alt='Grunt'/></p>
             <h4>No project detected.</h4>
 
@@ -78,28 +74,9 @@
 <script src='assets/js/lib/lodash.min.js'></script>
 <script src="assets/js/lib/bootstrap.min.js"></script>
 <script src='assets/js/peon-gui.js'></script>
+<script src='assets/js/templates.js'></script>
 <script>
     var socket = decodeURIComponent((new RegExp('[?|&]' + 'socket' + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null,
-            guiTmpls = {
-                taskList: '<% _.each(tasks, function(task) { %> <li><a href="#" data-task="<%= task %>"><%= task %><\/a><\/li><% }); %>',
-                taskInfo: '<h2><%= name %><\/h2><div class="well well-small"><%= info %><\/div><%= example %><%= configurations %><%= cliArgs %>',
-                accordian: '<% var divID = title.replace(/ /g, ""); %>\
-                <div class="accordion"> \
-                <div class="accordion-group"> \
-                <div class="accordion-heading"> \
-                <a class="accordion-toggle collapsed" data-toggle="collapse" href="#<%= divID %>"> \
-                <%= title %> <\/a> \
-                <\/div> \
-                <div id="<%= divID %>" class="accordion-body collapse"> \
-                <div class="accordion-inner"> \
-                    <pre><%= content %><\/pre> \
-                <\/div><\/div><\/div><\/div>',
-                dropdown: '<select id="task-config" class="pull-left"> \
-                <option><%= title %><\/option> \
-                <% _.each(options, function(key) { %> <option value="<%= key %>"><%= key %><\/option><% }); %> \
-                <\/select>',
-                outputLog: '<p><%= time %> - <%= message %> <\/p>'
-            },
             peonGui = new PeonGUI(socket);
 </script>
 </body>

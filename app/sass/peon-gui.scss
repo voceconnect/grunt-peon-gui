@@ -1,42 +1,30 @@
 @import "compass/css3";
-@import "mixins";
 
 body {
-  padding-top: 60px;
-  background-color: #eeeeee;
+  padding-top: 100px;
 }
-
+h1, h2, h3 {
+  margin: 0;
+}
 #tasks {
   border-right: none;
   float: none;
   margin-right: 0px;
   li {
     a {
-      border-radius: 2px;
-      border: 1px solid #ddd;
-      color: #646464;
-      background: #fafafa;
-      @include gradient-vertical(#fafafa, #efefef);
-      @include transition(all .5s);
+      color: #fffff;
+      border: none;
+      background: none;
       &:hover {
-        background: #4e525d;
-        @include gradient-vertical(#4e525d, #3c4049);
-        color: #fff;
-        border: 1px solid #3c4049;
+        border: none;
+        background: none;
+        text-decoration: none;
       }
-    }
-    &.active a {
-      @extend:hover;
     }
   }
 }
 
 #tabContent {
-  background-color: #F6F6F6;
-  background-image: -webkit-linear-gradient(top, #F9F9F9 0%, #EDEDED 100%);
-  border: 1px solid #d5d5d5;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 1px 0 0 #FFFFFF inset, 0 1px 0 rgba(255, 255, 255, 0.4);
   padding:  0 10px;
 }
 
@@ -90,14 +78,13 @@ body.offline #notice {
 
 .accordion-toggle {
   position: relative;
-  color: #568507;
   decoration:  none;
   &:after {
     content: '-';
     font-weight: bold;
   }
   &:hover {
-    color: #568507;
+
   }
   &.collapsed:after {
     content: '+';

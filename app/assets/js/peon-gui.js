@@ -56,7 +56,7 @@
           title: "Show Help Example",
           content: codeExample
         };
-        o.example = _.template(guiTmpls.accordian, tmplData);
+        o.example = guiTmpls.accordian(tmplData);
         o.info = _taskObject.info.replace(codeRegex, '');
       } catch (_error) {
         error = _error;
@@ -66,9 +66,9 @@
           title: "Show Configurations",
           content: _taskObject.config
         };
-        o.configurations = _.template(guiTmpls.accordian, tmplData);
+        o.configurations = guiTmpls.accordian(tmplData);
       } else {
-        o.configurations = "<p class=\"text-warning\">\n<em>\nNo configurations set.\nIf needed, you can pass colon delimted arguments below.\n</em>\n</p>";
+        o.configurations = guiTmpls.noConfigs({});
         o.cliArgs = '<input type="text" id="task-config" />';
       }
       try {
@@ -82,7 +82,7 @@
             title: "Select a Configuration",
             options: taskJSONlist
           };
-          o.cliArgs = _.template(guiTmpls.dropdown, tmplData);
+          o.cliArgs = guiTmpls.dropdown(tmplData);
         } else if (Object.keys(taskJSON).length > 0) {
           o.cliArgs = '';
         }
@@ -90,19 +90,17 @@
         error = _error;
         console.log(error);
       }
-      return $html.taskInfo.html(_.template(guiTmpls.taskInfo, o));
+      return $html.taskInfo.html(guiTmpls.taskInfo(o));
     };
 
     _Class.prototype.setProject = function() {
-      var tmplData;
       if (this.running === false) {
         $html.output.html('');
       }
       if (this.project) {
-        tmplData = {
+        $html.tasks.html(guiTmpls.taskList({
           tasks: Object.keys(this.project.tasks).sort()
-        };
-        $html.tasks.html(_.template(guiTmpls.taskList, tmplData));
+        }));
         return this.bindButtons();
       }
     };
@@ -141,7 +139,7 @@
             time: new Date().toString().split(' ')[4],
             message: eventMessage.replace(/(\[\d+m)/gi, "")
           };
-          return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
+          return $html.output.prepend(guiTmpls.outputLog(tmplData));
         }
       } else {
         return console.log(event);
@@ -211,7 +209,6 @@
       this.handleSocketMessage = __bind(this.handleSocketMessage, this);
       this.handleSocketOpen = __bind(this.handleSocketOpen, this);
       this.connect(wsPort);
-      console.log(this);
     }
 
     return _Class;

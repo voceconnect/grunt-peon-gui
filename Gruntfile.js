@@ -13,35 +13,50 @@ module.exports = function (grunt) {
         compass: {
             app: {
                 options: {
-                    sassDir: 'app/sass',
-                    cssDir: 'app/assets/css'
+                    sassDir: "app/sass",
+                    cssDir: "app/assets/css"
                 }
             }
         },
         coffee: {
             app: {
                 files: {
-                    'app/assets/js/peon-gui.js': 'app/coffee/peon-gui.coffee'
+                    "app/assets/js/peon-gui.js": "app/coffee/peon-gui.coffee"
                 }
             }
         },
         jshint: {
             app: [
-                'Gruntfile.js',
-                'app/js/*.js',
-                '<%= nodeunit.tests %>'
+                "Gruntfile.js",
+                "app/js/*.js",
+                "<%= nodeunit.tests %>"
             ]
         },
         coffeelint: {
-            app: ['lib/*.coffee', 'tasks/*.coffee']
+            app: ["lib/*.coffee", "tasks/*.coffee"]
         },
         nodeunit: {
-            tests: ['tests/*_test.js']
+            tests: ["tests/*_test.js"]
+        },
+        jst: {
+            compile: {
+                options: {
+                    namespace: "guiTmpls",
+                    processName: function (filename) {
+                        return filename.split('.')[0].split('/').pop().split('.').shift().replace(/-([a-z])/g, function (g) {
+                            return g[1].toUpperCase();
+                        });
+                    }
+                },
+                files: {
+                    "app/assets/js/templates.js": ["app/assets/tmpl/**/*.ejs"]
+                }
+            }
         },
         watch: {
             app: {
-                files: ['**/*.coffee', '**/*.scss'],
-                tasks: ['default'],
+                files: ["**/*.coffee", "**/*.scss"],
+                tasks: ["default"],
                 options: {
                     nospawn: true
                 }
@@ -49,13 +64,14 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadTasks('tasks');
+    grunt.loadTasks("tasks");
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-coffee');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-coffeelint');
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.registerTask('default', ['coffeelint', 'coffee', 'compass', 'jshint', 'nodeunit']);
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-compass");
+    grunt.loadNpmTasks("grunt-contrib-coffee");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-coffeelint");
+    grunt.loadNpmTasks("grunt-contrib-nodeunit");
+    grunt.loadNpmTasks("grunt-contrib-jst");
+    grunt.registerTask("default", ["coffeelint", "coffee", "compass", "jshint", "nodeunit", "jst"]);
 };
