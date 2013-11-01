@@ -12,6 +12,7 @@ PeonGUI = class
     progressBar: $("#running")
     output: $("#output")
     notice: $("#notice")
+    killAll: $("#kill-all")
   running: false
 
   disableActivity: () ->
@@ -152,6 +153,13 @@ PeonGUI = class
     $html.clearConsole.on('click', (e) ->
       e.preventDefault()
       $html.output.html('')
+    )
+    $html.killAll.on('click', (e) ->
+      e.preventDefault()
+      if confirm("Close Application")
+        # @TODO kill websocket/server process
+        window.open('','_self','')
+        window.close()
     )
 
   constructor: (wsPort) ->

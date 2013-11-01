@@ -12,7 +12,7 @@ body {
     font-family: "Lucida Grande", sans-serif;
     font-size: 12px;
     user-select: none;
-    text-shadow: 0px 1px 1px white;
+    text-shadow: 0px 1px 1px rgba(255,255,255, 0.8);
     background: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #33799d), color-stop(100%, #e8ebb4));
     background: -webkit-linear-gradient(top left, #33799d, #e8ebb4);
     background: -moz-linear-gradient(top left, #33799d, #e8ebb4);

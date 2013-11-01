@@ -12,7 +12,7 @@
     <div class="row-fluid">
         <div id="top-toolbar" class="toolbar col-sm-12">
             <div class="traffic-light">
-                <span class="red"></span>
+                <a href="#" id="kill-all"><span class="red"></span></a>
             </div>
             <div id="windowname">
                 <span id="project-name"></span>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row-fluid">
-        <aside id="sidebar" class="col-sm-2">
+        <aside id="sidebar" class="col-sm-2 height100">
             <section id="tasks-list">
                 <ul>
                     <li>
@@ -74,12 +74,12 @@
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
 
-                    <div id="output">No output.</div>
+                    <div id="output" class="height100">No output.</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row-fluid">
         <section id="notice" class="col-sm-12 hidden">
             <p><img src="assets/img/icon128.png" alt="Grunt"/></p>
             <h4>No project detected.</h4>

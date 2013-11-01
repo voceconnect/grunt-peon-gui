@@ -70,17 +70,17 @@ this["guiTmpls"]["taskInfo"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="col-sm-12">\n    <h2>' +
+__p += '<h2 class="pagination-centered">' +
 ((__t = ( name )) == null ? '' : __t) +
-'</h2>\n</div>\n<div class="col-sm-6">\n    <em>Description:</em>\n    <div class="description">\n        ' +
+'</h2>\n<div class="description">\n    ' +
 ((__t = ( info )) == null ? '' : __t) +
-'\n    </div>\n    ' +
+'\n</div>\n' +
 ((__t = ( example )) == null ? '' : __t) +
-'\n</div>\n<div class="col-sm-6">\n    <em>Configurations</em>\n    <div class="configurations">\n        <pre>' +
+'\n<div class="configurations">\n    ' +
 ((__t = ( configurations )) == null ? '' : __t) +
-'</pre>\n        ' +
+'\n    ' +
 ((__t = ( cliArgs )) == null ? '' : __t) +
-'\n    </div>\n</div>\n';
+'\n</div>';
 
 }
 return __p

@@ -16,7 +16,8 @@
       clearConsole: $("#clear-console"),
       progressBar: $("#running"),
       output: $("#output"),
-      notice: $("#notice")
+      notice: $("#notice"),
+      killAll: $("#kill-all")
     };
 
     _Class.prototype.running = false;
@@ -192,9 +193,16 @@
         that.enableActivity();
         return $html.output.html('');
       });
-      return $html.clearConsole.on('click', function(e) {
+      $html.clearConsole.on('click', function(e) {
         e.preventDefault();
         return $html.output.html('');
+      });
+      return $html.killAll.on('click', function(e) {
+        e.preventDefault();
+        if (confirm("Close Application")) {
+          window.open('', '_self', '');
+          return window.close();
+        }
       });
     };
 

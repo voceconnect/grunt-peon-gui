@@ -6,10 +6,6 @@ body {
   display: block;
 }
 
-h1, h2, h3 {
-  margin: 0;
-}
-
 .btn {
   border: 1px solid #767676;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8e8e8), color-stop(100%, #bcbcbc));
@@ -21,31 +17,6 @@ h1, h2, h3 {
   -moz-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
   box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
 }
-pre {
-  outline: 1px solid #ccc;
-  padding: 5px;
-  margin: 5px;
-}
-
-.string {
-  color: green;
-}
-
-.number {
-  color: darkorange;
-}
-
-.boolean {
-  color: blue;
-}
-
-.null {
-  color: magenta;
-}
-
-.key {
-  color: red;
-}
 
 #top-toolbar {
   border-radius: 0;
@@ -53,7 +24,7 @@ pre {
 
 #sidebar {
   position: relative;
-  padding: 0 0 40px 0;
+  padding: 0;
   #tasks-list {
     overflow-y: scroll;
     #tasks {
@@ -97,17 +68,50 @@ pre {
     bottom: 0;
     border: none;
     border-radius: 0;
+    text-align: center;
     #action-buttons {
       padding: 0.5em 0;
       position: static;
-      display: block;
+      display: inline-block;
       left: auto;
     }
   }
 }
 
 #content {
-  padding-right: 0;
+  padding: 0;
+
+  #task-info {
+    .description {
+      background-color: #b3d0e0;
+      padding: 1em;
+    }
+    pre {
+      outline: 1px solid #ccc;
+      padding: 5px;
+      margin: 1px;
+      border-radius: 0;
+      .string {
+        color: green;
+      }
+
+      .number {
+        color: darkorange;
+      }
+
+      .boolean {
+        color: blue;
+      }
+
+      .null {
+        color: magenta;
+      }
+
+      .key {
+        color: red;
+      }
+    }
+  }
 }
 
 #running {
@@ -132,9 +136,12 @@ pre {
     background: #000;
     text-shadow: none;
     border-left: 1px solid #767676;
-    padding: 1em;
+    padding: 0 0.4em;
     margin: 0;
     overflow-y: auto;
+    p {
+      margin-bottom: 0.2em;
+    }
   }
 }
 

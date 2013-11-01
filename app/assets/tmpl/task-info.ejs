@@ -1,17 +1,9 @@
-<div class="col-sm-12">
-    <h2><%= name %></h2>
+<h2 class="pagination-centered"><%= name %></h2>
+<div class="description">
+    <%= info %>
 </div>
-<div class="col-sm-6">
-    <em>Description:</em>
-    <div class="description">
-        <%= info %>
-    </div>
-    <%= example %>
-</div>
-<div class="col-sm-6">
-    <em>Configurations</em>
-    <div class="configurations">
-        <pre><%= configurations %></pre>
-        <%= cliArgs %>
-    </div>
+<%= example %>
+<div class="configurations">
+    <%= configurations %>
+    <%= cliArgs %>
 </div>
