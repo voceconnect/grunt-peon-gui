@@ -72,13 +72,13 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="col-sm-12">\n    <h2>' +
 ((__t = ( name )) == null ? '' : __t) +
-'</h2>\n</div>\n<div class="col-sm-6">\n    Task Description:\n    <div class="description">\n        ' +
+'</h2>\n</div>\n<div class="col-sm-6">\n    <em>Description:</em>\n    <div class="description">\n        ' +
 ((__t = ( info )) == null ? '' : __t) +
 '\n    </div>\n    ' +
 ((__t = ( example )) == null ? '' : __t) +
-'\n</div>\n<div class="col-sm-6">\n    Configurations\n    <div class="configurations">\n        ' +
+'\n</div>\n<div class="col-sm-6">\n    <em>Configurations</em>\n    <div class="configurations">\n        <pre>' +
 ((__t = ( configurations )) == null ? '' : __t) +
-'\n        ' +
+'</pre>\n        ' +
 ((__t = ( cliArgs )) == null ? '' : __t) +
 '\n    </div>\n</div>\n';
 
