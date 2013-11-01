@@ -1,39 +1,114 @@
 @import "compass/css3";
 
 body {
-  padding: 1em 0;
+  padding: 0;
+  background: none;
+  display: block;
 }
 
 h1, h2, h3 {
   margin: 0;
 }
 
-pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
-
-#projects {
-
+.btn {
+  border: 1px solid #767676;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8e8e8), color-stop(100%, #bcbcbc));
+  background-image: -webkit-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -moz-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -o-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: linear-gradient(#e8e8e8, #bcbcbc);
+  -webkit-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  -moz-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+}
+pre {
+  outline: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px;
 }
 
-#tasks {
-  margin: 0;
-  padding: 0;
-  li {
-    display: block;
-    a {
-      display: block;
-      margin-bottom: 0.5em;
-      &:hover {
+.string {
+  color: green;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: magenta;
+}
+
+.key {
+  color: red;
+}
+
+#top-toolbar {
+  border-radius: 0;
+}
+
+#sidebar {
+  position: relative;
+  padding: 0 0 40px 0;
+  #tasks-list {
+    overflow-y: scroll;
+    #tasks {
+      margin: 0;
+      padding: 0;
+      li {
+        display: block;
+        a {
+          text-shadow: rgb(255, 255, 255) 0px 1px 1px;
+          font-size: 13px;
+          color: rgb(51, 51, 51);
+          display: block;
+          &:hover {
+            text-decoration: none;
+            text-shadow: none;
+          }
+        }
+        &.active, &:hover {
+          color: #f3ffff;
+          text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+          background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #67b1df), color-stop(100%, #3489cc));
+          background: -webkit-linear-gradient(#67b1df, #3489cc);
+          background: -moz-linear-gradient(#67b1df, #3489cc);
+          background: -o-linear-gradient(#67b1df, #3489cc);
+          background: linear-gradient(#67b1df, #3489cc);
+          -webkit-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          -moz-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          a {
+            color: #ffffff;
+            text-decoration: none;
+            text-shadow: none;
+          }
+        }
       }
+    }
+  }
+  #bottom-toolbar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border: none;
+    border-radius: 0;
+    #action-buttons {
+      padding: 0.5em 0;
+      position: static;
+      display: block;
+      left: auto;
     }
   }
 }
 
+#content {
 
+}
 
 #output-wrapper {
   padding-top: .5em;
@@ -42,7 +117,7 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 
 #running {
   float: right;
-  width:  80%;
+  width: 80%;
   margin-top: 12px;
 }
 
@@ -59,10 +134,6 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
   margin-top: 0;
   overflow-y: auto;
   max-height: 400px;
-}
-
-#task-select {
-
 }
 
 #notice {
@@ -85,7 +156,7 @@ body.offline #notice {
 
 .accordion-toggle {
   position: relative;
-  decoration:  none;
+  decoration: none;
   &:after {
     content: '-';
     font-weight: bold;

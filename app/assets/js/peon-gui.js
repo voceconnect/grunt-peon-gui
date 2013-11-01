@@ -173,7 +173,6 @@
           name: taskName,
           output: ''
         };
-        $html.actionButtons.removeClass('hidden');
         that.updateTaskInfo(taskName);
         return $('html,body').scrollTop(0);
       });

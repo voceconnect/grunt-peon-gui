@@ -132,7 +132,6 @@ PeonGUI = class
       that.currentTask =
         name: taskName
         output: ''
-      $html.actionButtons.removeClass('hidden')
       that.updateTaskInfo(taskName)
       $('html,body').scrollTop(0)
     )

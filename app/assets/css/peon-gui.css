@@ -1,79 +1,149 @@
 /* line 3, ../../sass/peon-gui.scss */
 body {
-  padding: 1em 0;
+  padding: 0;
+  background: none;
+  display: block;
 }
 
-/* line 7, ../../sass/peon-gui.scss */
+/* line 9, ../../sass/peon-gui.scss */
 h1, h2, h3 {
   margin: 0;
 }
 
-/* line 11, ../../sass/peon-gui.scss */
+/* line 13, ../../sass/peon-gui.scss */
+.btn {
+  border: 1px solid #767676;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8e8e8), color-stop(100%, #bcbcbc));
+  background-image: -webkit-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -moz-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -o-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: linear-gradient(#e8e8e8, #bcbcbc);
+  -webkit-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  -moz-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+}
+
+/* line 24, ../../sass/peon-gui.scss */
 pre {
   outline: 1px solid #ccc;
   padding: 5px;
   margin: 5px;
 }
 
-/* line 12, ../../sass/peon-gui.scss */
+/* line 30, ../../sass/peon-gui.scss */
 .string {
   color: green;
 }
 
-/* line 13, ../../sass/peon-gui.scss */
+/* line 34, ../../sass/peon-gui.scss */
 .number {
   color: darkorange;
 }
 
-/* line 14, ../../sass/peon-gui.scss */
+/* line 38, ../../sass/peon-gui.scss */
 .boolean {
   color: blue;
 }
 
-/* line 15, ../../sass/peon-gui.scss */
+/* line 42, ../../sass/peon-gui.scss */
 .null {
   color: magenta;
 }
 
-/* line 16, ../../sass/peon-gui.scss */
+/* line 46, ../../sass/peon-gui.scss */
 .key {
   color: red;
 }
 
-/* line 22, ../../sass/peon-gui.scss */
-#tasks {
+/* line 50, ../../sass/peon-gui.scss */
+#top-toolbar {
+  border-radius: 0;
+}
+
+/* line 54, ../../sass/peon-gui.scss */
+#sidebar {
+  position: relative;
+  padding: 0 0 40px 0;
+}
+/* line 57, ../../sass/peon-gui.scss */
+#sidebar #tasks-list {
+  overflow-y: scroll;
+}
+/* line 59, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks {
   margin: 0;
   padding: 0;
 }
-/* line 25, ../../sass/peon-gui.scss */
-#tasks li {
+/* line 62, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks li {
   display: block;
 }
-/* line 27, ../../sass/peon-gui.scss */
-#tasks li a {
+/* line 64, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks li a {
+  text-shadow: white 0px 1px 1px;
+  font-size: 13px;
+  color: #333333;
   display: block;
-  margin-bottom: 0.5em;
+}
+/* line 69, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks li a:hover {
+  text-decoration: none;
+  text-shadow: none;
+}
+/* line 74, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks li.active, #sidebar #tasks-list #tasks li:hover {
+  color: #f3ffff;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #67b1df), color-stop(100%, #3489cc));
+  background: -webkit-linear-gradient(#67b1df, #3489cc);
+  background: -moz-linear-gradient(#67b1df, #3489cc);
+  background: -o-linear-gradient(#67b1df, #3489cc);
+  background: linear-gradient(#67b1df, #3489cc);
+  -webkit-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+  -moz-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+  box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+}
+/* line 85, ../../sass/peon-gui.scss */
+#sidebar #tasks-list #tasks li.active a, #sidebar #tasks-list #tasks li:hover a {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: none;
+}
+/* line 94, ../../sass/peon-gui.scss */
+#sidebar #bottom-toolbar {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border: none;
+  border-radius: 0;
+}
+/* line 100, ../../sass/peon-gui.scss */
+#sidebar #bottom-toolbar #action-buttons {
+  padding: 0.5em 0;
+  position: static;
+  display: block;
+  left: auto;
 }
 
-/* line 38, ../../sass/peon-gui.scss */
+/* line 113, ../../sass/peon-gui.scss */
 #output-wrapper {
   padding-top: .5em;
   margin-top: 20px;
 }
 
-/* line 43, ../../sass/peon-gui.scss */
+/* line 118, ../../sass/peon-gui.scss */
 #running {
   float: right;
   width: 80%;
   margin-top: 12px;
 }
 
-/* line 49, ../../sass/peon-gui.scss */
+/* line 124, ../../sass/peon-gui.scss */
 #clear-console {
   clear: both;
 }
 
-/* line 53, ../../sass/peon-gui.scss */
+/* line 128, ../../sass/peon-gui.scss */
 #output {
   font-family: Courier;
   color: #458B00;
@@ -85,39 +155,39 @@ pre {
   max-height: 400px;
 }
 
-/* line 68, ../../sass/peon-gui.scss */
+/* line 139, ../../sass/peon-gui.scss */
 #notice {
   text-align: center;
 }
 
-/* line 72, ../../sass/peon-gui.scss */
+/* line 143, ../../sass/peon-gui.scss */
 body.online #notice {
   display: hidden;
   visibility: hidden;
 }
 
-/* line 77, ../../sass/peon-gui.scss */
+/* line 148, ../../sass/peon-gui.scss */
 body.offline #tasks, body.offline #output {
   display: none;
 }
 
-/* line 81, ../../sass/peon-gui.scss */
+/* line 152, ../../sass/peon-gui.scss */
 body.offline #notice {
   display: block;
   visibility: visible;
 }
 
-/* line 86, ../../sass/peon-gui.scss */
+/* line 157, ../../sass/peon-gui.scss */
 .accordion-toggle {
   position: relative;
   decoration: none;
 }
-/* line 89, ../../sass/peon-gui.scss */
+/* line 160, ../../sass/peon-gui.scss */
 .accordion-toggle:after {
   content: '-';
   font-weight: bold;
 }
-/* line 96, ../../sass/peon-gui.scss */
+/* line 167, ../../sass/peon-gui.scss */
 .accordion-toggle.collapsed:after {
   content: '+';
 }

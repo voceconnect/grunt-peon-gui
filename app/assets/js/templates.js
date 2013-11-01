@@ -93,7 +93,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  _.each(tasks, function(task) { ;
-__p += '\n    <li><a href="#" class="btn btn-primary btn-sm" data-task="' +
+__p += '\n    <li><a href="#" class="" data-task="' +
 ((__t = ( task )) == null ? '' : __t) +
 '">' +
 ((__t = ( task )) == null ? '' : __t) +
