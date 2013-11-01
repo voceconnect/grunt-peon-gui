@@ -15,7 +15,11 @@ class PeonWebSocket
     process.on("SIGTERM", @killWorkers)
     @tasks = grunt.task._tasks
     @grunt = grunt
-    @gruntFilePath = grunt.cli.options.gruntfile || 'Gruntfile.js'
+    if grunt.option('gruntfile')
+      gfp = grunt.option('gruntfile')
+    else
+      gfp = grunt.file.findup('Gruntfile.{js,coffee}', {nocase: true})
+    @gruntFilePath = gfp
     @removeTasks(['gui'])
     @addConfigToTasks()
 
@@ -81,16 +85,7 @@ class PeonWebSocket
             ))
           else if Object.keys(that.tasks).indexOf(msg) > -1
             connection.send("Running Task: #{msg}")
-            if(that.gruntFilePath.indexOf "peon" > -1)
-              args = [
-                '--gruntfile'
-                that.gruntFilePath
-                '--base'
-                '.'
-                msg
-              ]
-            grunt.log.writeln('Running: grunt ' + args.join(" "))
-            command = spawn('grunt', args)
+            command = spawn('grunt')
             that.workers.push(command)
             command.stdout.on('data', (data) ->
               if data

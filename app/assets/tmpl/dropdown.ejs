@@ -1,0 +1,6 @@
+<select id="task-config" class="form-control">
+    <option><%= title %></option>
+    <% _.each(options, function(key) { %>
+        <option value="<%= key %>"><%= key %></option>
+    <% }); %>
+</select>

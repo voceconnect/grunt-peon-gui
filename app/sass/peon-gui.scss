@@ -1,73 +1,151 @@
 @import "compass/css3";
-@import "mixins";
 
 body {
-  padding-top: 60px;
-  background-color: #eeeeee;
+  padding: 0;
+  background: none;
+  display: block;
 }
 
-#tasks {
-  border-right: none;
-  float: none;
-  margin-right: 0px;
-  li {
-    a {
-      border-radius: 2px;
-      border: 1px solid #ddd;
-      color: #646464;
-      background: #fafafa;
-      @include gradient-vertical(#fafafa, #efefef);
-      @include transition(all .5s);
-      &:hover {
-        background: #4e525d;
-        @include gradient-vertical(#4e525d, #3c4049);
-        color: #fff;
-        border: 1px solid #3c4049;
+.btn {
+  border: 1px solid #767676;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8e8e8), color-stop(100%, #bcbcbc));
+  background-image: -webkit-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -moz-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: -o-linear-gradient(#e8e8e8, #bcbcbc);
+  background-image: linear-gradient(#e8e8e8, #bcbcbc);
+  -webkit-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  -moz-box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+  box-shadow: #f1f1f1 0px 1px inset, #cccccc 0px 1px;
+}
+
+#top-toolbar {
+  border-radius: 0;
+}
+
+#sidebar {
+  position: relative;
+  padding: 0;
+  #tasks-list {
+    overflow-y: scroll;
+    #tasks {
+      margin: 0;
+      padding: 0;
+      li {
+        display: block;
+        a {
+          text-shadow: rgb(255, 255, 255) 0px 1px 1px;
+          font-size: 13px;
+          color: rgb(51, 51, 51);
+          display: block;
+          &:hover {
+            text-decoration: none;
+            text-shadow: none;
+          }
+        }
+        &.active, &:hover {
+          color: #f3ffff;
+          text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+          background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #67b1df), color-stop(100%, #3489cc));
+          background: -webkit-linear-gradient(#67b1df, #3489cc);
+          background: -moz-linear-gradient(#67b1df, #3489cc);
+          background: -o-linear-gradient(#67b1df, #3489cc);
+          background: linear-gradient(#67b1df, #3489cc);
+          -webkit-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          -moz-box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          box-shadow: #5aa5da 0 1px inset, #6fbae5 0 2px inset, #307cbc 0 -1px inset;
+          a {
+            color: #ffffff;
+            text-decoration: none;
+            text-shadow: none;
+          }
+        }
       }
     }
-    &.active a {
-      @extend:hover;
+  }
+  #bottom-toolbar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    #action-buttons {
+      padding: 0.5em 0;
+      position: static;
+      display: inline-block;
+      left: auto;
     }
   }
 }
 
-#tabContent {
-  background-color: #F6F6F6;
-  background-image: -webkit-linear-gradient(top, #F9F9F9 0%, #EDEDED 100%);
-  border: 1px solid #d5d5d5;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 1px 0 0 #FFFFFF inset, 0 1px 0 rgba(255, 255, 255, 0.4);
-  padding:  0 10px;
-}
+#content {
+  padding: 0;
 
-#output-wrapper {
-  padding-top: .5em;
-  margin-top: 20px
+  #task-info {
+    .description {
+      background-color: #b3d0e0;
+      padding: 1em;
+      .form-control {
+        margin-top: 1em;
+      }
+    }
+    pre {
+      outline: 1px solid #ccc;
+      padding: 5px;
+      margin: 1px;
+      border-radius: 0;
+      .string {
+        color: green;
+      }
+
+      .number {
+        color: darkorange;
+      }
+
+      .boolean {
+        color: blue;
+      }
+
+      .null {
+        color: magenta;
+      }
+
+      .key {
+        color: red;
+      }
+    }
+  }
 }
 
 #running {
-  float: right;
-  width:  80%;
   margin-top: 12px;
 }
 
-#clear-console {
-  clear: both;
-}
-
-#output {
-  font-family: Courier;
-  color: #458B00;
-  background: #000;
-  border: 3px double #CCC;
-  padding: 1em;
-  margin-top: 0;
-  overflow-y: auto;
-  max-height: 400px;
-}
-
-#task-select {
-  margin-right: 1.5em;
+#output-wrapper {
+  position: relative;
+  padding: 0;
+  #clear-console {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    margin: 0.3em 0.4em 0 0;
+    text-shadow: none;
+  }
+  #output {
+    font-family: Courier;
+    color: #458B00;
+    background: #000;
+    text-shadow: none;
+    border-left: 1px solid #767676;
+    padding: 0 0.4em;
+    margin: 0;
+    overflow-y: auto;
+    p {
+      margin-bottom: 0.2em;
+    }
+  }
 }
 
 #notice {
@@ -90,14 +168,13 @@ body.offline #notice {
 
 .accordion-toggle {
   position: relative;
-  color: #568507;
-  decoration:  none;
+  decoration: none;
   &:after {
     content: '-';
     font-weight: bold;
   }
   &:hover {
-    color: #568507;
+
   }
   &.collapsed:after {
     content: '+';

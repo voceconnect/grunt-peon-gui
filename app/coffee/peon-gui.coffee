@@ -12,6 +12,7 @@ PeonGUI = class
     progressBar: $("#running")
     output: $("#output")
     notice: $("#notice")
+    killAll: $("#kill-all")
   running: false
 
   disableActivity: () ->
@@ -43,23 +44,13 @@ PeonGUI = class
       tmplData =
         title: "Show Help Example"
         content: codeExample
-      o.example = _.template(guiTmpls.accordian, tmplData)
+      o.example = guiTmpls.accordian(tmplData)
       o.info = _taskObject.info.replace(codeRegex, '')
     catch error
     if _taskObject.config.indexOf('{') > -1
-      tmplData =
-        title: "Show Configurations"
-        content: _taskObject.config
-      o.configurations = _.template(guiTmpls.accordian, tmplData)
+      o.configurations = prettyJSON(_taskObject.config)
     else
-      o.configurations = """
-                         <p class="text-warning">
-                         <em>
-                         No configurations set.
-                         If needed, you can pass colon delimted arguments below.
-                         </em>
-                         </p>
-                         """
+      o.configurations = guiTmpls.noConfigs({});
       o.cliArgs = '<input type="text" id="task-config" />'
     try
       taskJSON = JSON.parse(_taskObject.config)
@@ -70,21 +61,19 @@ PeonGUI = class
         tmplData =
           title: "Select a Configuration"
           options: taskJSONlist
-        o.cliArgs = _.template(guiTmpls.dropdown, tmplData)
+        o.cliArgs = guiTmpls.dropdown(tmplData)
       else if Object.keys(taskJSON).length > 0
         o.cliArgs = ''
     catch error
       console.log error
 
-    $html.taskInfo.html(_.template(guiTmpls.taskInfo, o))
+    $html.taskInfo.html(guiTmpls.taskInfo(o))
 
   setProject: () ->
     if @running is false
       $html.output.html('')
     if @project
-      tmplData =
-        tasks: Object.keys(@project.tasks).sort()
-      $html.tasks.html(_.template(guiTmpls.taskList, tmplData))
+      $html.tasks.html(guiTmpls.taskList({tasks: Object.keys(@project.tasks).sort()}))
       @bindButtons()
 
   handleSocketOpen: () =>
@@ -115,7 +104,7 @@ PeonGUI = class
         tmplData =
           time: new Date().toString().split(' ')[4]
           message: eventMessage.replace(/(\[\d+m)/gi, "")
-        $html.output.prepend(_.template(guiTmpls.outputLog, tmplData))
+        $html.output.prepend(guiTmpls.outputLog(tmplData))
     else
       console.log event
 
@@ -144,7 +133,6 @@ PeonGUI = class
       that.currentTask =
         name: taskName
         output: ''
-      $html.actionButtons.removeClass('hidden')
       that.updateTaskInfo(taskName)
       $('html,body').scrollTop(0)
     )
@@ -166,10 +154,15 @@ PeonGUI = class
       e.preventDefault()
       $html.output.html('')
     )
+    $html.killAll.on('click', (e) ->
+      e.preventDefault()
+      if confirm("Close Application")
+        # @TODO kill websocket/server process
+        window.open('','_self','')
+        window.close()
+    )
 
   constructor: (wsPort) ->
     @connect(wsPort)
-    console.log @
-
 
 if window then window.PeonGUI = PeonGUI

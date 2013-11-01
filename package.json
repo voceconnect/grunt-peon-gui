@@ -7,7 +7,7 @@
         "http",
         "gui"
     ],
-    "version": "0.5.0",
+    "version": "1.0.0",
     "homepage": "https://github.com/voceconnect/grunt-peon-gui",
     "author": {
         "name": "Mark Parolisi",
@@ -40,6 +40,8 @@
         "grunt-contrib-nodeunit": "0.1.x",
         "grunt-contrib-watch": "0.3.x",
         "grunt-coffeelint": "0.0.6",
+        "grunt-contrib-jst": "latest",
+        "grunt-contrib-uglify": "latest",
         "grunt": "~0.4.x"
     },
     "peerDependencies": {

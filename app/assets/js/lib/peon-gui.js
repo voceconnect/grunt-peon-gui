@@ -16,7 +16,8 @@
       clearConsole: $("#clear-console"),
       progressBar: $("#running"),
       output: $("#output"),
-      notice: $("#notice")
+      notice: $("#notice"),
+      killAll: $("#kill-all")
     };
 
     _Class.prototype.running = false;
@@ -56,19 +57,15 @@
           title: "Show Help Example",
           content: codeExample
         };
-        o.example = _.template(guiTmpls.accordian, tmplData);
+        o.example = guiTmpls.accordian(tmplData);
         o.info = _taskObject.info.replace(codeRegex, '');
       } catch (_error) {
         error = _error;
       }
       if (_taskObject.config.indexOf('{') > -1) {
-        tmplData = {
-          title: "Show Configurations",
-          content: _taskObject.config
-        };
-        o.configurations = _.template(guiTmpls.accordian, tmplData);
+        o.configurations = prettyJSON(_taskObject.config);
       } else {
-        o.configurations = "<p class=\"text-warning\">\n<em>\nNo configurations set.\nIf needed, you can pass colon delimted arguments below.\n</em>\n</p>";
+        o.configurations = guiTmpls.noConfigs({});
         o.cliArgs = '<input type="text" id="task-config" />';
       }
       try {
@@ -82,7 +79,7 @@
             title: "Select a Configuration",
             options: taskJSONlist
           };
-          o.cliArgs = _.template(guiTmpls.dropdown, tmplData);
+          o.cliArgs = guiTmpls.dropdown(tmplData);
         } else if (Object.keys(taskJSON).length > 0) {
           o.cliArgs = '';
         }
@@ -90,19 +87,17 @@
         error = _error;
         console.log(error);
       }
-      return $html.taskInfo.html(_.template(guiTmpls.taskInfo, o));
+      return $html.taskInfo.html(guiTmpls.taskInfo(o));
     };
 
     _Class.prototype.setProject = function() {
-      var tmplData;
       if (this.running === false) {
         $html.output.html('');
       }
       if (this.project) {
-        tmplData = {
+        $html.tasks.html(guiTmpls.taskList({
           tasks: Object.keys(this.project.tasks).sort()
-        };
-        $html.tasks.html(_.template(guiTmpls.taskList, tmplData));
+        }));
         return this.bindButtons();
       }
     };
@@ -141,7 +136,7 @@
             time: new Date().toString().split(' ')[4],
             message: eventMessage.replace(/(\[\d+m)/gi, "")
           };
-          return $html.output.prepend(_.template(guiTmpls.outputLog, tmplData));
+          return $html.output.prepend(guiTmpls.outputLog(tmplData));
         }
       } else {
         return console.log(event);
@@ -179,7 +174,6 @@
           name: taskName,
           output: ''
         };
-        $html.actionButtons.removeClass('hidden');
         that.updateTaskInfo(taskName);
         return $('html,body').scrollTop(0);
       });
@@ -199,9 +193,16 @@
         that.enableActivity();
         return $html.output.html('');
       });
-      return $html.clearConsole.on('click', function(e) {
+      $html.clearConsole.on('click', function(e) {
         e.preventDefault();
         return $html.output.html('');
+      });
+      return $html.killAll.on('click', function(e) {
+        e.preventDefault();
+        if (confirm("Close Application")) {
+          window.open('', '_self', '');
+          return window.close();
+        }
       });
     };
 
@@ -211,7 +212,6 @@
       this.handleSocketMessage = __bind(this.handleSocketMessage, this);
       this.handleSocketOpen = __bind(this.handleSocketOpen, this);
       this.connect(wsPort);
-      console.log(this);
     }
 
     return _Class;
