@@ -21,7 +21,7 @@ module.exports = function (grunt) {
         coffee: {
             app: {
                 files: {
-                    "app/assets/js/peon-gui.js": "app/coffee/peon-gui.coffee"
+                    "app/assets/js/lib/peon-gui.js": "app/coffee/peon-gui.coffee"
                 }
             }
         },
@@ -49,7 +49,23 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    "app/assets/js/templates.js": ["app/assets/tmpl/**/*.ejs"]
+                    "app/assets/js/lib/templates.js": ["app/assets/tmpl/**/*.ejs"]
+                }
+            }
+        },
+        uglify: {
+            app: {
+                files: {
+                    'app/assets/js/lib.min.js': [
+                        'app/assets/js/lib/vendor/jquery.js',
+                        'app/assets/js/lib/vendor/lodash.js',
+                        'app/assets/js/lib/vendor/bootstrap.js',
+                        'app/assets/js/lib/vendor/pretty-json.js',
+                        'app/assets/js/lib/templates.js',
+                        'app/assets/js/lib/peon-gui.js',
+                        'app/assets/js/lib/ui.js'
+
+                    ]
                 }
             }
         },
@@ -73,5 +89,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-coffeelint");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
     grunt.loadNpmTasks("grunt-contrib-jst");
-    grunt.registerTask("default", ["coffeelint", "coffee", "compass", "jshint", "nodeunit", "jst"]);
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.registerTask("default", ["coffeelint", "coffee", "compass", "jshint", "nodeunit", "jst", "uglify"]);
 };

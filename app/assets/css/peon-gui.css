@@ -125,69 +125,76 @@ pre {
   left: auto;
 }
 
-/* line 113, ../../sass/peon-gui.scss */
-#output-wrapper {
-  padding-top: .5em;
-  margin-top: 20px;
+/* line 109, ../../sass/peon-gui.scss */
+#content {
+  padding-right: 0;
 }
 
-/* line 118, ../../sass/peon-gui.scss */
+/* line 113, ../../sass/peon-gui.scss */
 #running {
-  float: right;
-  width: 80%;
   margin-top: 12px;
 }
 
-/* line 124, ../../sass/peon-gui.scss */
-#clear-console {
-  clear: both;
+/* line 117, ../../sass/peon-gui.scss */
+#output-wrapper {
+  position: relative;
+  padding: 0;
 }
-
-/* line 128, ../../sass/peon-gui.scss */
-#output {
+/* line 120, ../../sass/peon-gui.scss */
+#output-wrapper #clear-console {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  margin: 0.3em 0.4em 0 0;
+  text-shadow: none;
+}
+/* line 129, ../../sass/peon-gui.scss */
+#output-wrapper #output {
   font-family: Courier;
   color: #458B00;
   background: #000;
-  border: 3px double #CCC;
+  text-shadow: none;
+  border-left: 1px solid #767676;
   padding: 1em;
-  margin-top: 0;
+  margin: 0;
   overflow-y: auto;
-  max-height: 400px;
 }
 
-/* line 139, ../../sass/peon-gui.scss */
+/* line 141, ../../sass/peon-gui.scss */
 #notice {
   text-align: center;
 }
 
-/* line 143, ../../sass/peon-gui.scss */
+/* line 145, ../../sass/peon-gui.scss */
 body.online #notice {
   display: hidden;
   visibility: hidden;
 }
 
-/* line 148, ../../sass/peon-gui.scss */
+/* line 150, ../../sass/peon-gui.scss */
 body.offline #tasks, body.offline #output {
   display: none;
 }
 
-/* line 152, ../../sass/peon-gui.scss */
+/* line 154, ../../sass/peon-gui.scss */
 body.offline #notice {
   display: block;
   visibility: visible;
 }
 
-/* line 157, ../../sass/peon-gui.scss */
+/* line 159, ../../sass/peon-gui.scss */
 .accordion-toggle {
   position: relative;
   decoration: none;
 }
-/* line 160, ../../sass/peon-gui.scss */
+/* line 162, ../../sass/peon-gui.scss */
 .accordion-toggle:after {
   content: '-';
   font-weight: bold;
 }
-/* line 167, ../../sass/peon-gui.scss */
+/* line 169, ../../sass/peon-gui.scss */
 .accordion-toggle.collapsed:after {
   content: '+';
 }

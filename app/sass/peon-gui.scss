@@ -107,33 +107,35 @@ pre {
 }
 
 #content {
-
-}
-
-#output-wrapper {
-  padding-top: .5em;
-  margin-top: 20px
+  padding-right: 0;
 }
 
 #running {
-  float: right;
-  width: 80%;
   margin-top: 12px;
 }
 
-#clear-console {
-  clear: both;
-}
-
-#output {
-  font-family: Courier;
-  color: #458B00;
-  background: #000;
-  border: 3px double #CCC;
-  padding: 1em;
-  margin-top: 0;
-  overflow-y: auto;
-  max-height: 400px;
+#output-wrapper {
+  position: relative;
+  padding: 0;
+  #clear-console {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    margin: 0.3em 0.4em 0 0;
+    text-shadow: none;
+  }
+  #output {
+    font-family: Courier;
+    color: #458B00;
+    background: #000;
+    text-shadow: none;
+    border-left: 1px solid #767676;
+    padding: 1em;
+    margin: 0;
+    overflow-y: auto;
+  }
 }
 
 #notice {

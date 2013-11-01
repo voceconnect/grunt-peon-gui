@@ -46,39 +46,35 @@
         </aside>
         <div id="content" class="col-sm-10">
             <div class="row-fluid">
-                <section id="task-info">
-                    <p class="text-center pull-right"><img src="assets/img/icon128.png"/></p>
-
-                    <h2>Welcome to the Peon GUI</h2>
-
-                    <p>
-                        Select a Grunt task for your project on the left to get
-                        started.
-                    </p>
-
-                    <p>
-                        Tasks with multiple configuration targets provide a dropdown
-                        option to choose which target to run.
-                        Regular tasks allow for colon delimited command line
-                        arguments to be passed via a text field.
-                    </p>
-                </section>
-            </div>
-            <div class="row-fluid">
-                <div id="output-wrapper" class="well">
-                    <div class="col-sm-12">
-                        <div id="running"
-                             class="progress progress-striped active hidden">
-                            <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div>
-                        <h2>Output</h2>
+                <div class="col-sm-7">
+                    <div id="running"
+                         class="progress progress-striped active hidden">
+                        <div class="progress-bar progress-bar-success" style="width: 100%"></div>
                     </div>
-                    <a href="#" class="btn btn-mini pull-right"
-                       id="clear-console">
-                        clear output log
+                    <div id="task-info">
+                        <p class="text-center pull-right"><img src="assets/img/icon128.png"/></p>
+
+                        <h2>Welcome to the Peon GUI</h2>
+
+                        <p>
+                            Select a Grunt task for your project on the left to get
+                            started.
+                        </p>
+
+                        <p>
+                            Tasks with multiple configuration targets provide a dropdown
+                            option to choose which target to run.
+                            Regular tasks allow for colon delimited command line
+                            arguments to be passed via a text field.
+                        </p>
+                    </div>
+                </div>
+                <div id="output-wrapper" class="col-sm-5">
+                    <a href="#" id="clear-console">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
 
-                    <div id="output" class="col-sm-12">No output.</div>
+                    <div id="output">No output.</div>
                 </div>
             </div>
         </div>
@@ -94,13 +90,7 @@
         </section>
     </div>
 </div>
-<script src="assets/js/lib/jquery.min.js"></script>
-<script src="assets/js/lib/lodash.min.js"></script>
-<script src="assets/js/lib/bootstrap.min.js"></script>
-<script src="assets/js/lib/pretty-json.js"></script>
-<script src="assets/js/peon-gui.js"></script>
-<script src="assets/js/templates.js"></script>
-<script src="assets/js/ui.js"></script>
+<script src="assets/js/lib.min.js"></script>
 <script>
     var socket = decodeURIComponent((new RegExp("[?|&]" + "socket" + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [, ""])[1].replace(/\+/g, "%20")) || null,
             peonGui = new PeonGUI(socket);
