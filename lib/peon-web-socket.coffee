@@ -85,7 +85,7 @@ class PeonWebSocket
             ))
           else if Object.keys(that.tasks).indexOf(msg) > -1
             connection.send("Running Task: #{msg}")
-            command = spawn('grunt')
+            command = spawn('grunt', [msg])
             that.workers.push(command)
             command.stdout.on('data', (data) ->
               if data
