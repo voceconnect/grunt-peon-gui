@@ -7,7 +7,7 @@
         "http",
         "gui"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "homepage": "https://github.com/voceconnect/grunt-peon-gui",
     "author": {
         "name": "Mark Parolisi",

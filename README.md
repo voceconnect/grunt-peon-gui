@@ -23,6 +23,7 @@ _Run this task with the `grunt gui` command._
 
 
 ## Release History
+ * 2014-02-00 - v1.0.1 - Bugfix for passing CLI args.
  * 2013-11-01 - v1.0.0 - Update to Bootstrap v3. New theme. Support for CoffeeScript gruntfiles.
  * 2013-10-31 - v0.5.0 - Cleanup.
  * 2013-07-15 - v0.4.0 - Use gruntfile from grunt object.
